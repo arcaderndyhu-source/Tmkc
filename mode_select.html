@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>⚡ SERVERGODPANNEL • 7 OPERATIONAL ENGINES</title>
+<link rel="icon" type="image/png" href="/static/favicon.png">
+<link rel="apple-touch-icon" href="/static/apple-touch-icon.png">
+<link rel="manifest" href="/static/manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="SERVERGODPANNEL">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+:root {
+  --bg: #030712;
+  --text-main: #ffffff;
+  --text-muted: #94a3b8;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Outfit', sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  background: var(--bg);
+  color: var(--text-main);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow-x: hidden;
+  padding-bottom: max(24px, var(--safe-bottom));
+  background-image: 
+    radial-gradient(circle at 10% 12%, rgba(0, 240, 255, 0.12) 0%, transparent 40%),
+    radial-gradient(circle at 90% 15%, rgba(168, 85, 247, 0.14) 0%, transparent 45%),
+    radial-gradient(circle at 50% 85%, rgba(16, 185, 129, 0.10) 0%, transparent 45%),
+    radial-gradient(circle at 85% 85%, rgba(245, 158, 11, 0.10) 0%, transparent 40%);
+  background-attachment: fixed;
+}
+
+/* 3D CYBER SMOKE & AURORA DYNAMIC LIGHTING */
+.smoke-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.smoke-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(110px);
+  mix-blend-mode: screen;
+  opacity: 0.38;
+  pointer-events: none;
+  animation: smokeDrift 22s infinite alternate ease-in-out;
+}
+.smoke-cyan {
+  top: -8%;
+  left: 5%;
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, #00f0ff 0%, #3b82f6 50%, transparent 75%);
+  animation-duration: 24s;
+}
+.smoke-purple {
+  top: 20%;
+  right: -8%;
+  width: 750px;
+  height: 750px;
+  background: radial-gradient(circle, #a855f7 0%, #ec4899 50%, transparent 75%);
+  animation-duration: 28s;
+  animation-delay: -6s;
+}
+.smoke-emerald {
+  bottom: -5%;
+  left: 8%;
+  width: 650px;
+  height: 650px;
+  background: radial-gradient(circle, #10b981 0%, #06b6d4 50%, transparent 75%);
+  animation-duration: 26s;
+  animation-delay: -12s;
+}
+.smoke-amber {
+  bottom: 15%;
+  right: 15%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, #f59e0b 0%, #ef4444 50%, transparent 75%);
+  animation-duration: 30s;
+  animation-delay: -18s;
+}
+@keyframes smokeDrift {
+  0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  33% { transform: translate(45px, -35px) scale(1.14) rotate(8deg); }
+  66% { transform: translate(-35px, 45px) scale(0.92) rotate(-8deg); }
+  100% { transform: translate(30px, -25px) scale(1.08) rotate(4deg); }
+}
+
+/* Luxury Cyber Navbar */
+.navbar {
+  position: relative;
+  z-index: 30;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: calc(14px + var(--safe-top)) 32px 14px;
+  background: rgba(8, 12, 26, 0.85);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 12px 36px rgba(0,0,0,0.65);
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-logo-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #00f0ff, #6366f1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 900;
+  font-size: 20px;
+  color: #000;
+  box-shadow: 0 0 25px rgba(0, 240, 255, 0.5);
+  animation: pulseGlow 3s infinite alternate;
+}
+@keyframes pulseGlow {
+  0% { transform: scale(1); box-shadow: 0 0 20px rgba(0, 240, 255, 0.4); }
+  100% { transform: scale(1.04); box-shadow: 0 0 30px rgba(0, 240, 255, 0.7); }
+}
+
+.nav-title {
+  font-size: 19px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.owner-crest {
+  font-size: 10.5px;
+  padding: 3px 9px;
+  border-radius: 8px;
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  color: #fbbf24;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+}
+.user-pill.owner {
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  color: #fbbf24;
+  box-shadow: 0 0 15px rgba(245, 158, 11, 0.15);
+}
+.user-pill.user {
+  background: rgba(0, 240, 255, 0.1);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  color: #00f0ff;
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
+}
+
+.logout-btn {
+  padding: 7px 16px;
+  background: rgba(244, 63, 94, 0.15);
+  border: 1px solid rgba(244, 63, 94, 0.35);
+  border-radius: 12px;
+  color: #f43f5e;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  font-family: 'JetBrains Mono', monospace;
+}
+.logout-btn:hover {
+  background: #f43f5e;
+  color: #fff;
+  box-shadow: 0 0 20px rgba(244, 63, 94, 0.5);
+  transform: translateY(-1px);
+}
+
+/* Main Content */
+.main-content {
+  position: relative;
+  z-index: 10;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 36px 20px;
+}
+
+.hub-header {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.hub-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 16px;
+  background: rgba(99, 102, 241, 0.14);
+  border: 1px solid rgba(99, 102, 241, 0.4);
+  border-radius: 30px;
+  font-size: 11.5px;
+  font-weight: 800;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 1px;
+  color: #a5b4fc;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
+}
+
+.hub-title {
+  font-size: 38px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  margin-bottom: 8px;
+  background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 45%, #94a3b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hub-subtitle {
+  font-size: 14px;
+  color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* 7 MODULAR 3D LAUNCH CARDS GRID */
+.modes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 22px;
+  width: 100%;
+  max-width: 1280px;
+  perspective: 1200px;
+}
+
+/* Base 3D Card */
+.mode-card-3d {
+  position: relative;
+  padding: 26px 24px;
+  background: linear-gradient(145deg, rgba(20, 26, 50, 0.72) 0%, rgba(8, 12, 26, 0.92) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 24px;
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--text-main);
+  box-shadow: 
+    0 20px 40px -10px rgba(0, 0, 0, 0.85),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: perspective(1000px) translateZ(0);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  overflow: hidden;
+}
+
+.mode-card-3d:hover {
+  transform: perspective(1000px) translateY(-10px) scale(1.025);
+}
+
+/* Glowing Aura on Hover for Each Theme */
+.mode-card-3d.accounts {
+  border-color: rgba(0, 240, 255, 0.35);
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.85), 0 0 25px rgba(0, 240, 255, 0.12);
+}
+.mode-card-3d.accounts:hover {
+  border-color: rgba(0, 240, 255, 0.75);
+  box-shadow: 0 28px 60px -12px rgba(0, 0, 0, 0.95), 0 0 45px rgba(0, 240, 255, 0.35), inset 0 1px 0 rgba(0, 240, 255, 0.5);
+}
+
+.mode-card-3d.multi {
+  border-color: rgba(59, 130, 246, 0.35);
+}
+.mode-card-3d.multi:hover {
+  border-color: rgba(59, 130, 246, 0.75);
+  box-shadow: 0 28px 60px -12px rgba(0, 0, 0, 0.95), 0 0 45px rgba(59, 130, 246, 0.35), inset 0 1px 0 rgba(59, 130, 246, 0.5);
+}
+
+.mode-card-3d.single {
+  border-color: rgba(244, 63, 94, 0.35);
+}
+.mode-card-3d.single:hover {
+  border-color: rgba(244, 63, 94, 0.75);
+  box-shadow: 0 28px 60px -12px rgba(0, 0, 0, 0.95), 0 0 45px rgba(244, 63, 94, 0.35), inset 0 1px 0 rgba(244, 63, 94, 0.5);
+}
+
+.mode-card-3d.gc {
+  border-color: rgba(168, 85, 247, 0.35);
+}
+.mode-card-3d.gc:hover {
+  border-color: rgba(168, 85, 247, 0.75);
+  box-shadow: 0 28px 60px -12px rgba(0, 0, 0, 0.95), 0 0 45px rgba(168, 85, 247, 0.35), inset 0 1px 0 rgba(168, 85, 247, 0.5);
+}
+
+.mode-card-3d.photo {
+  border-color: rgba(16, 185, 129, 0.35);
+}
+.mode-card-3d.photo:hover {
+  border-color: rgba(16, 185, 129, 0.75);
+  box-shadow: 0 28px 60px -12px rgba(0, 0, 0, 0.95), 0 0 45px rgba(16, 185, 129, 0.35), inset 0 1px 0 rgba(16, 185, 129, 0.5);
+}
+
+.mode-card-3d.session {
+  border-color: rgba(14, 165, 233, 0.35);
+}
+.mode-card-3d.session:hover {
+  border-color: rgba(14, 165, 233, 0.75);
+  box-shadow: 0 28px 60px -12px rgba(0, 0, 0, 0.95), 0 0 45px rgba(14, 165, 233, 0.35), inset 0 1px 0 rgba(14, 165, 233, 0.5);
+}
+
+.mode-card-3d.owner {
+  border-color: rgba(245, 158, 11, 0.4);
+}
+.mode-card-3d.owner:hover {
+  border-color: rgba(245, 158, 11, 0.85);
+  box-shadow: 0 28px 60px -12px rgba(0, 0, 0, 0.95), 0 0 50px rgba(245, 158, 11, 0.4), inset 0 1px 0 rgba(245, 158, 11, 0.5);
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.card-icon-3d {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  box-shadow: 0 10px 24px -4px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.25);
+  transition: transform 0.3s ease;
+}
+
+.mode-card-3d:hover .card-icon-3d {
+  transform: scale(1.1) translateZ(15px);
+}
+
+.card-icon-3d.cyan { background: linear-gradient(135deg, rgba(0, 240, 255, 0.25), rgba(59, 130, 246, 0.35)); border: 1px solid rgba(0, 240, 255, 0.5); color: #00f0ff; }
+.card-icon-3d.blue { background: linear-gradient(135deg, rgba(59, 130, 246, 0.25), rgba(99, 102, 241, 0.35)); border: 1px solid rgba(59, 130, 246, 0.5); color: #60a5fa; }
+.card-icon-3d.rose { background: linear-gradient(135deg, rgba(244, 63, 94, 0.25), rgba(225, 29, 72, 0.35)); border: 1px solid rgba(244, 63, 94, 0.5); color: #fb7185; }
+.card-icon-3d.purple { background: linear-gradient(135deg, rgba(168, 85, 247, 0.25), rgba(126, 34, 206, 0.35)); border: 1px solid rgba(168, 85, 247, 0.5); color: #c084fc; }
+.card-icon-3d.emerald { background: linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(5, 150, 105, 0.35)); border: 1px solid rgba(16, 185, 129, 0.5); color: #34d399; }
+.card-icon-3d.sky { background: linear-gradient(135deg, rgba(14, 165, 233, 0.25), rgba(3, 105, 161, 0.35)); border: 1px solid rgba(14, 165, 233, 0.5); color: #38bdf8; }
+.card-icon-3d.amber { background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(180, 83, 9, 0.35)); border: 1px solid rgba(245, 158, 11, 0.5); color: #fbbf24; }
+
+.status-badge {
+  padding: 5px 12px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 800;
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badge-cyan { background: rgba(0, 240, 255, 0.15); border: 1px solid rgba(0, 240, 255, 0.4); color: #00f0ff; }
+.badge-blue { background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.4); color: #60a5fa; }
+.badge-rose { background: rgba(244, 63, 94, 0.15); border: 1px solid rgba(244, 63, 94, 0.4); color: #fb7185; }
+.badge-purple { background: rgba(168, 85, 247, 0.15); border: 1px solid rgba(168, 85, 247, 0.4); color: #c084fc; }
+.badge-emerald { background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); color: #34d399; }
+.badge-sky { background: rgba(14, 165, 233, 0.15); border: 1px solid rgba(14, 165, 233, 0.4); color: #38bdf8; }
+.badge-amber { background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.45); color: #fbbf24; }
+
+.card-num {
+  font-size: 11px;
+  font-family: 'JetBrains Mono', monospace;
+  color: #64748b;
+  font-weight: 800;
+  margin-bottom: 2px;
+}
+
+.card-title {
+  font-size: 20px;
+  font-weight: 900;
+  margin-bottom: 6px;
+  color: #fff;
+}
+
+.card-desc {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 14px;
+}
+
+.card-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.card-chip {
+  padding: 4px 9px;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  font-size: 10.5px;
+  color: #94a3b8;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.card-btn-3d {
+  width: 100%;
+  padding: 12px;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 900;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  font-family: 'JetBrains Mono', monospace;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-btn-3d:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.btn-cyan { background: linear-gradient(135deg, #00f0ff, #2563eb); color: #000; }
+.btn-blue { background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: #fff; }
+.btn-rose { background: linear-gradient(135deg, #f43f5e, #be123c); color: #fff; }
+.btn-purple { background: linear-gradient(135deg, #a855f7, #6b21a8); color: #fff; }
+.btn-emerald { background: linear-gradient(135deg, #10b981, #047857); color: #000; }
+.btn-sky { background: linear-gradient(135deg, #0ea5e9, #4f46e5); color: #fff; }
+.btn-amber { background: linear-gradient(135deg, #f59e0b, #b45309); color: #000; }
+
+@media (max-width: 1024px) {
+  .modes-grid {
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: calc(12px + var(--safe-top)) 16px 12px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .nav-title { font-size: 16px; }
+  .main-content { padding: 20px 14px; }
+  .hub-title { font-size: 26px; }
+  .hub-subtitle { font-size: 12px; }
+  .modes-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .mode-card-3d {
+    padding: 22px 18px;
+    border-radius: 20px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- 3D CYBER SMOKE & AURORA BACKGROUND -->
+<div class="smoke-container">
+  <div class="smoke-orb smoke-cyan"></div>
+  <div class="smoke-orb smoke-purple"></div>
+  <div class="smoke-orb smoke-emerald"></div>
+  <div class="smoke-orb smoke-amber"></div>
+</div>
+
+<nav class="navbar">
+  <div class="nav-brand">
+    <div class="nav-logo-icon" style="overflow:hidden; padding:2px; background:linear-gradient(135deg, #00f0ff, #a855f7); border:1px solid rgba(0,240,255,0.5);">
+      <img src="/static/logo.png" alt="Logo" style="width:100%;height:100%;object-fit:cover;border-radius:10px;">
+    </div>
+    <div class="nav-title">
+      <span>SERVERGODPANNEL</span>
+      {% if role == "owner" %}
+      <span class="owner-crest">👑 OWNER KING</span>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="nav-actions">
+    <a href="/download_apk" class="user-pill user" style="text-decoration:none; display:inline-flex; align-items:center; gap:5px;" title="Download Android APK">
+      <i data-lucide="smartphone" style="width:13px; height:13px;"></i>
+      <span>🤖 APK</span>
+    </a>
+    <a href="/install_ios" class="user-pill owner" style="text-decoration:none; display:inline-flex; align-items:center; gap:5px;" title="1-Click iOS Profile">
+      <i data-lucide="apple" style="width:13px; height:13px;"></i>
+      <span>🍏 iOS App</span>
+    </a>
+    <div class="user-pill {{ 'owner' if role == 'owner' else 'user' }}">
+      {{ '👑 OWNER' if role == 'owner' else '👤 USER' }}: {{ name }}
+    </div>
+    <a href="/logout" class="logout-btn">Logout 🚪</a>
+  </div>
+</nav>
+
+<main class="main-content">
+  <div class="hub-header">
+    <div class="hub-tag">⚡ Autonomous Operational Matrix</div>
+    <h1 class="hub-title">Select Operational Engine</h1>
+    <p class="hub-subtitle">7 Modular High-Performance Instagram Automation Engines</p>
+  </div>
+
+  <div class="modes-grid">
+
+    <!-- 1. ACCOUNTS MANAGEMENT CARD -->
+    <a href="/dashboard#accounts" class="mode-card-3d accounts">
+      <div>
+        <div class="card-top">
+          <div class="card-icon-3d cyan">📱</div>
+          <span class="status-badge badge-cyan">ID LOGIN VAULT</span>
+        </div>
+        <p class="card-num">MODULE 01</p>
+        <h2 class="card-title">Accounts Management</h2>
+        <p class="card-desc">Dedicated ID login hub. View all connected accounts with live status across all 4 features (Multi, Single, Photo, GC Creator).</p>
+        <div class="card-chips">
+          <span class="card-chip">4 Features Status</span>
+          <span class="card-chip">Start/Stop Any Feature</span>
+          <span class="card-chip">Delete & Setup</span>
+        </div>
+      </div>
+      <button class="card-btn-3d btn-cyan">Open Accounts Hub →</button>
+    </a>
+
+    <!-- 2. MULTI GC MASTER CARD -->
+    <a href="/dashboard#multi" class="mode-card-3d multi">
+      <div>
+        <div class="card-top">
+          <div class="card-icon-3d blue">🚀</div>
+          <span class="status-badge badge-blue">MULTI GC</span>
+        </div>
+        <p class="card-num">MODULE 02</p>
+        <h2 class="card-title">Insta Multi</h2>
+        <p class="card-desc">Multi-account broadcast & cyclic renaming across all active group chats in automated rotation.</p>
+        <div class="card-chips">
+          <span class="card-chip">120s Cooldown</span>
+          <span class="card-chip">Name Lock</span>
+          <span class="card-chip">Dedicated Terminal</span>
+        </div>
+      </div>
+      <button class="card-btn-3d btn-blue">Launch Engine →</button>
+    </a>
+
+    <!-- 3. SINGLE GC BLASTER CARD -->
+    <a href="/dashboard#single" class="mode-card-3d single">
+      <div>
+        <div class="card-top">
+          <div class="card-icon-3d rose">🎯</div>
+          <span class="status-badge badge-rose">SINGLE GC</span>
+        </div>
+        <p class="card-num">MODULE 03</p>
+        <h2 class="card-title">Single GC Blaster</h2>
+        <p class="card-desc">Precision target lockdown with instant Chrome GC link to Thread ID parsing and rapid text blasting.</p>
+        <div class="card-chips">
+          <span class="card-chip">10 Text / 1 NC</span>
+          <span class="card-chip">Chrome Link Parser</span>
+          <span class="card-chip">80s Cooldown</span>
+        </div>
+      </div>
+      <button class="card-btn-3d btn-rose">Launch Engine →</button>
+    </a>
+
+    <!-- 4. KINGX GC CREATOR CARD -->
+    <a href="/dashboard#gccreator" class="mode-card-3d gc">
+      <div>
+        <div class="card-top">
+          <div class="card-icon-3d purple">🛑</div>
+          <span class="status-badge badge-purple">GC CREATOR</span>
+        </div>
+        <p class="card-num">MODULE 04</p>
+        <h2 class="card-title">KingX GC Creator</h2>
+        <p class="card-desc">Automated mass group creation with admin promoter & 15s auto-leave guard for complete protection.</p>
+        <div class="card-chips">
+          <span class="card-chip">Mass Creation</span>
+          <span class="card-chip">Admin Guard</span>
+          <span class="card-chip">Auto-Leave</span>
+        </div>
+      </div>
+      <button class="card-btn-3d btn-purple">Launch Engine →</button>
+    </a>
+
+    <!-- 5. GROUP PHOTO SPAMMER CARD -->
+    <a href="/dashboard#photochanger" class="mode-card-3d photo">
+      <div>
+        <div class="card-top">
+          <div class="card-icon-3d emerald">📸</div>
+          <span class="status-badge badge-emerald">PHOTO SPAMMER</span>
+        </div>
+        <p class="card-num">MODULE 05</p>
+        <h2 class="card-title">Photo Spammer</h2>
+        <p class="card-desc">Continuous automated group chat photo blast in Single GC or Multi-GC broadcast mode.</p>
+        <div class="card-chips">
+          <span class="card-chip">Single / Multi GC</span>
+          <span class="card-chip">Direct Photo Blast</span>
+          <span class="card-chip">Auto-Clean Photos</span>
+        </div>
+      </div>
+      <button class="card-btn-3d btn-emerald">Launch Engine →</button>
+    </a>
+
+    <!-- 6. SESSION HUB CARD -->
+    <a href="/dashboard#creator" class="mode-card-3d session">
+      <div>
+        <div class="card-top">
+          <div class="card-icon-3d sky">🔑</div>
+          <span class="status-badge badge-sky">SESSION HUB</span>
+        </div>
+        <p class="card-num">MODULE 06</p>
+        <h2 class="card-title">Session Hub</h2>
+        <p class="card-desc">Instant cookie generator & dual authentication manager with 1-click add and credential vault.</p>
+        <div class="card-chips">
+          <span class="card-chip">Direct Login</span>
+          <span class="card-chip">Cookie Vault</span>
+          <span class="card-chip">Session Extract</span>
+        </div>
+      </div>
+      <button class="card-btn-3d btn-sky">Launch Engine →</button>
+    </a>
+
+    {% if role == "owner" %}
+    <!-- 7. MASTER FLEET COMMAND CENTER CARD -->
+    <a href="/dashboard#owner" class="mode-card-3d owner">
+      <div>
+        <div class="card-top">
+          <div class="card-icon-3d amber">👑</div>
+          <span class="status-badge badge-amber">MASTER FLEET</span>
+        </div>
+        <p class="card-num">MODULE 07</p>
+        <h2 class="card-title">Master Owner Control</h2>
+        <p class="card-desc">Global fleet overwatch: view, edit, filter, and control bots and accounts across all registered users.</p>
+        <div class="card-chips">
+          <span class="card-chip">All Users Matrix</span>
+          <span class="card-chip">Password Reveal</span>
+          <span class="card-chip">Master Edit</span>
+        </div>
+      </div>
+      <button class="card-btn-3d btn-amber">Open Master Fleet →</button>
+    </a>
+    {% endif %}
+
+  </div>
+</main>
+
+<script>
+lucide.createIcons();
+</script>
+</body>
+</html>

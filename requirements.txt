@@ -1,0 +1,6 @@
+flask
+instagrapi
+requests
+cryptography
+pillow
+gunicorn 
