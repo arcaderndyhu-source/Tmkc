@@ -1,0 +1,2656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>⚡ SERVER GODCLAN V2 • AUTONOMOUS COMMAND MATRIX</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="SERVER GODCLAN">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        scarDark: '#04060a',
+                        scarCard: 'rgba(15, 13, 24, 0.86)',
+                        scarBorder: 'rgba(244, 63, 94, 0.25)',
+                        scarRed: '#f43f5e',
+                        scarCrimson: '#e11d48',
+                        scarRose: '#fb7185',
+                        scarViolet: '#a855f7',
+                        scarAmber: '#f59e0b',
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            background-color: #04060a;
+            background-image: 
+                radial-gradient(circle at 14% 12%, rgba(225, 29, 72, 0.22) 0%, transparent 45%),
+                radial-gradient(circle at 86% 16%, rgba(168, 85, 247, 0.18) 0%, transparent 48%),
+                radial-gradient(circle at 50% 85%, rgba(244, 63, 94, 0.14) 0%, transparent 42%),
+                radial-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 100% 100%, 26px 26px;
+            background-attachment: fixed;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #f8fafc;
+            min-height: 100vh;
+        }
+        .glass-panel {
+            background: linear-gradient(150deg, rgba(20, 16, 32, 0.88) 0%, rgba(9, 10, 18, 0.96) 100%);
+            border: 1px solid rgba(244, 63, 94, 0.26);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-radius: 24px;
+            box-shadow: 0 16px 45px -10px rgba(0, 0, 0, 0.65), 0 0 25px -5px rgba(225, 29, 72, 0.18);
+        }
+        .glass-card-hover:hover {
+            border-color: rgba(244, 63, 94, 0.55);
+            box-shadow: 0 16px 50px -10px rgba(225, 29, 72, 0.32), 0 0 30px -5px rgba(168, 85, 247, 0.22);
+            transform: translateY(-2px);
+        }
+        .text-gradient-scarlet {
+            background: linear-gradient(135deg, #ffffff 0%, #fda4af 35%, #f43f5e 80%, #e11d48 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .text-gradient-gold {
+            background: linear-gradient(135deg, #ffffff 0%, #fde68a 40%, #f59e0b 90%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .tab-active {
+            background: linear-gradient(135deg, rgba(244, 63, 94, 0.30) 0%, rgba(225, 29, 72, 0.18) 100%);
+            border-bottom: 2px solid #f43f5e;
+            color: #ffffff !important;
+            box-shadow: 0 4px 20px -4px rgba(225, 29, 72, 0.35);
+        }
+        .input-stylish {
+            background: rgba(8, 10, 18, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            transition: all 0.25s ease;
+        }
+        .input-stylish:focus {
+            border-color: #f43f5e;
+            box-shadow: 0 0 16px -2px rgba(244, 63, 94, 0.45);
+            background: rgba(12, 14, 25, 0.95);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.25); }
+        ::-webkit-scrollbar-thumb { background: rgba(244, 63, 94, 0.35); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(244, 63, 94, 0.65); }
+    </style>
+</head>
+<body class="p-3 md:p-6 pb-24">
+
+    <!-- TOP NAVIGATION & BRANDING BAR (NO LOGO IMAGES) -->
+    <header class="glass-panel p-4 md:p-5 mb-6 sticky top-3 z-40">
+        <div class="flex flex-col lg:flex-row items-center justify-between gap-4">
+            
+            <!-- Left: Typographic Branding -->
+            <div class="flex items-center gap-3 w-full lg:w-auto justify-between lg:justify-start">
+                <div>
+                    <div class="flex items-center gap-2">
+                        <h1 class="text-2xl md:text-3xl font-black tracking-tight text-gradient-scarlet">⚡ SERVER GODCLAN V2</h1>
+                        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase bg-rose-500/15 border border-rose-500/40 text-rose-400 shadow-sm">v4.0</span>
+                    </div>
+                    <p class="text-[11px] text-slate-400 font-medium tracking-wide mt-0.5">Autonomous Instagram Fleet & Blaster Matrix • S23 Ultra Daemon</p>
+                </div>
+
+                <!-- Mobile Role Pill -->
+                <div class="lg:hidden">
+                    {% if role == 'owner' %}
+                    <span class="px-3 py-1 rounded-full text-xs font-black uppercase bg-amber-500/20 border border-amber-500/40 text-amber-300 flex items-center gap-1.5 shadow-lg shadow-amber-500/10">
+                        <i data-lucide="crown" class="w-3.5 h-3.5 text-amber-400"></i>
+                        <span>OWNER</span>
+                    </span>
+                    {% else %}
+                    <span class="px-3 py-1 rounded-full text-xs font-bold uppercase bg-rose-500/20 border border-rose-500/40 text-rose-300 flex items-center gap-1.5">
+                        <i data-lucide="user" class="w-3.5 h-3.5 text-rose-400"></i>
+                        <span>{{ user }}</span>
+                    </span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Center: Live Cloudflare Public URL Box -->
+            <div class="w-full lg:max-w-md bg-black/60 border border-rose-500/35 rounded-2xl px-4 py-2.5 flex items-center justify-between gap-3 text-xs shadow-inner">
+                <div class="flex items-center gap-2.5 min-w-0">
+                    <span class="relative flex h-2.5 w-2.5 shrink-0">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                    </span>
+                    <div class="min-w-0">
+                        <div class="text-[10px] text-slate-400 uppercase tracking-wider font-bold">Cloudflare Public Tunnel</div>
+                        <div id="tunnelUrlDisplay" class="font-mono text-emerald-400 font-semibold truncate">Connecting tunnel...</div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-1.5 shrink-0">
+                    <button onclick="copyTunnelUrl()" class="px-3 py-1.5 rounded-xl bg-rose-500/20 hover:bg-rose-500/35 text-rose-300 border border-rose-500/40 transition-all active:scale-95 flex items-center gap-1.5 font-black text-[11px]">
+                        <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                        <span id="copyBtnText">Copy</span>
+                    </button>
+                    <a id="tunnelExternalLink" href="#" target="_blank" class="p-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 transition-all" title="Open Public Link">
+                        <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right: Identity Badge, Global Fleet Controls, Logout -->
+            <div class="flex items-center gap-2.5 w-full lg:w-auto justify-end">
+                <!-- Desktop User Badge -->
+                <div class="hidden lg:flex items-center gap-2 mr-1">
+                    {% if role == 'owner' %}
+                    <div class="px-3.5 py-2 rounded-2xl bg-amber-500/15 border border-amber-500/40 text-amber-300 text-xs font-black uppercase flex items-center gap-2 shadow-lg shadow-amber-500/10">
+                        <i data-lucide="crown" class="w-4 h-4 text-amber-400"></i>
+                        <span>MASTER OWNER</span>
+                    </div>
+                    {% else %}
+                    <div class="px-3.5 py-2 rounded-2xl bg-rose-500/15 border border-rose-500/40 text-rose-300 text-xs font-bold uppercase flex items-center gap-2">
+                        <i data-lucide="user-check" class="w-4 h-4 text-rose-400"></i>
+                        <span>USER: {{ user }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Global Start Fleet -->
+                <button onclick="startAllBots()" class="px-4 py-2.5 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-black text-xs uppercase tracking-wider shadow-lg shadow-emerald-600/30 transition-all active:scale-95 flex items-center gap-1.5">
+                    <i data-lucide="play" class="w-3.5 h-3.5 fill-white"></i>
+                    <span>Start All</span>
+                </button>
+
+                <!-- Global Stop Fleet -->
+                <button onclick="stopAllBots()" class="px-4 py-2.5 rounded-2xl bg-gradient-to-r from-red-600 to-rose-700 hover:from-red-500 hover:to-rose-600 text-white font-black text-xs uppercase tracking-wider shadow-lg shadow-red-600/30 transition-all active:scale-95 flex items-center gap-1.5">
+                    <i data-lucide="square" class="w-3.5 h-3.5 fill-white"></i>
+                    <span>Stop All</span>
+                </button>
+
+                <!-- Logout -->
+                <a href="/logout" class="p-2.5 rounded-2xl bg-slate-900 border border-white/10 hover:border-red-500/40 text-slate-400 hover:text-red-400 transition-all" title="Logout">
+                    <i data-lucide="log-out" class="w-4 h-4"></i>
+                </a>
+            </div>
+
+        </div>
+
+        <!-- KPI STATS SUMMARY ROW -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-4 pt-4 border-t border-white/10">
+            <div class="bg-black/35 border border-white/5 rounded-2xl p-3 flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-rose-500/15 border border-rose-500/30 flex items-center justify-center text-rose-400">
+                    <i data-lucide="users" class="w-4 h-4"></i>
+                </div>
+                <div>
+                    <div class="text-[10.5px] font-bold text-slate-400 uppercase tracking-wider">Fleet Accounts</div>
+                    <div id="kpiTotalAccounts" class="text-lg font-black text-white font-mono">0</div>
+                </div>
+            </div>
+
+            <div class="bg-black/35 border border-white/5 rounded-2xl p-3 flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+                    <i data-lucide="activity" class="w-4 h-4"></i>
+                </div>
+                <div>
+                    <div class="text-[10.5px] font-bold text-slate-400 uppercase tracking-wider">Active Running</div>
+                    <div id="kpiActiveBots" class="text-lg font-black text-emerald-400 font-mono">0</div>
+                </div>
+            </div>
+
+            <div class="bg-black/35 border border-white/5 rounded-2xl p-3 flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-violet-500/15 border border-violet-500/30 flex items-center justify-center text-violet-400">
+                    <i data-lucide="message-square" class="w-4 h-4"></i>
+                </div>
+                <div>
+                    <div class="text-[10.5px] font-bold text-slate-400 uppercase tracking-wider">Messages Sent</div>
+                    <div id="kpiTotalSent" class="text-lg font-black text-violet-400 font-mono">0</div>
+                </div>
+            </div>
+
+            <div class="bg-black/35 border border-white/5 rounded-2xl p-3 flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400">
+                    <i data-lucide="tag" class="w-4 h-4"></i>
+                </div>
+                <div>
+                    <div class="text-[10.5px] font-bold text-slate-400 uppercase tracking-wider">Titles Renamed</div>
+                    <div id="kpiTotalRenamed" class="text-lg font-black text-amber-400 font-mono">0</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- NAVIGATION TABS -->
+    <div class="flex items-center gap-2.5 overflow-x-auto pb-2 mb-6 border-b border-white/10 text-xs font-bold scrollbar-none">
+        <button onclick="switchTab('studio')" id="tabNavStudio" class="px-5 py-3 rounded-2xl flex items-center gap-2.5 transition-all tab-active">
+            <i data-lucide="crosshair" class="w-4 h-4 text-rose-400"></i>
+            <span>Attack & Blaster Studio</span>
+            <span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
+        </button>
+
+        <button onclick="switchTab('accounts')" id="tabNavAccounts" class="px-5 py-3 rounded-2xl flex items-center gap-2.5 transition-all text-slate-400 hover:text-white">
+            <i data-lucide="layers" class="w-4 h-4 text-rose-400"></i>
+            <span>Fleet Accounts</span>
+            <span id="tabBadgeAccountsCount" class="px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 text-[10px] font-mono">0</span>
+        </button>
+
+        {% if role == 'owner' %}
+        <button onclick="switchTab('owner')" id="tabNavOwner" class="px-5 py-3 rounded-2xl flex items-center gap-2.5 transition-all text-slate-400 hover:text-white">
+            <i data-lucide="shield" class="w-4 h-4 text-amber-400"></i>
+            <span>Master Owner Matrix</span>
+            <span class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-mono">👑</span>
+        </button>
+        {% endif %}
+
+        <button onclick="switchTab('telemetry')" id="tabNavTelemetry" class="px-5 py-3 rounded-2xl flex items-center gap-2.5 transition-all text-slate-400 hover:text-white">
+            <i data-lucide="terminal" class="w-4 h-4 text-cyan-400"></i>
+            <span>Live Console Telemetry</span>
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+        </button>
+
+        <button onclick="switchTab('downloads')" id="tabNavDownloads" class="px-5 py-3 rounded-2xl flex items-center gap-2.5 transition-all text-slate-400 hover:text-white">
+            <i data-lucide="smartphone" class="w-4 h-4 text-emerald-400"></i>
+            <span>MOD APK & ISO Client</span>
+            <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-mono">v2.4</span>
+        </button>
+    </div>
+
+    <!-- ================= TAB 1: ATTACK & BLASTER STUDIO (PRIMARY INTERFACE) ================= -->
+    <section id="tabViewStudio" class="space-y-6">
+        <div class="glass-panel p-6 md:p-8">
+            
+            <!-- Top Header & Direct Action Buttons -->
+            <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 pb-6 mb-6 border-b border-white/10">
+                <div>
+                    <h2 class="text-xl md:text-2xl font-black tracking-tight text-white flex items-center gap-2.5">
+                        <i data-lucide="crosshair" class="w-6 h-6 text-rose-500"></i>
+                        <span>Attack & Blaster Command Center</span>
+                    </h2>
+                    <p class="text-xs text-slate-400 mt-1">Select your account, choose Single or Multi GC mode, enter Target & Prefix, customize messages and trigger execution.</p>
+                </div>
+
+                <!-- DIRECT BIG ATTACK CONTROLS -->
+                <div class="flex items-center gap-3 w-full lg:w-auto">
+                    <button onclick="launchSelectedAttack()" id="studioLaunchBtn" class="flex-1 lg:flex-none px-6 py-3.5 rounded-2xl bg-gradient-to-r from-rose-600 via-rose-500 to-rose-600 hover:from-rose-500 hover:to-rose-400 text-white font-black text-xs uppercase tracking-wider shadow-xl shadow-rose-600/40 transition-all active:scale-95 flex items-center justify-center gap-2">
+                        <i data-lucide="play" class="w-4 h-4 fill-white"></i>
+                        <span>🚀 Launch Attack</span>
+                    </button>
+
+                    <button onclick="stopSelectedAttack()" id="studioStopBtn" class="flex-1 lg:flex-none px-6 py-3.5 rounded-2xl bg-gradient-to-r from-red-600 to-rose-700 hover:from-red-500 hover:to-rose-600 text-white font-black text-xs uppercase tracking-wider shadow-xl shadow-red-600/40 transition-all active:scale-95 flex items-center justify-center gap-2">
+                        <i data-lucide="square" class="w-4 h-4 fill-white"></i>
+                        <span>⏹ Stop Attack</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 1. ACCOUNT SELECTION & MODE SWITCHER BAR -->
+            <div class="bg-black/40 border border-white/10 rounded-2xl p-5 mb-6 space-y-4">
+                <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                    
+                    <!-- Account Selector Dropdown -->
+                    <div class="w-full md:w-1/2">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <label class="block text-xs font-black uppercase tracking-wider text-rose-400 flex items-center gap-2">
+                                <i data-lucide="instagram" class="w-4 h-4"></i>
+                                <span>1. Select Attacking Account</span>
+                            </label>
+                            <span id="studioTargetAccountBadge" class="text-[10px] font-mono px-2 py-0.5 rounded border border-amber-500/30 bg-amber-500/10 text-amber-300 font-bold">🌐 ALL ACCOUNTS (GLOBAL)</span>
+                        </div>
+                        <select id="studioAccountSelect" onchange="onStudioAccountChange(true)" class="input-stylish w-full rounded-xl py-3 px-3.5 text-xs text-white font-bold focus:outline-none cursor-pointer">
+                            <option value="ALL">🌐 All Fleet Accounts (Simultaneous Attack)</option>
+                        </select>
+                        <div id="studioAccountInfoPill" class="mt-2 text-[11px] text-slate-400 flex items-center gap-3">
+                            <span>Status: <strong id="studioAccountStatusText" class="text-slate-300">IDLE</strong></span>
+                            <span>Inbox Groups: <strong id="studioAccountGroupsCount" class="text-rose-400 font-mono">0</strong></span>
+                            <button onclick="triggerAutoFetchForSelectedAccount()" class="text-rose-400 hover:text-rose-300 font-bold flex items-center gap-1 text-[11px] underline">
+                                <i data-lucide="refresh-cw" class="w-3 h-3"></i> Auto-Fetch GCs
+                            </button>
+                            <button onclick="openDiscoveredGroupsModal()" class="text-cyan-400 hover:text-cyan-300 font-bold flex items-center gap-1 text-[11px] underline">
+                                <i data-lucide="eye" class="w-3 h-3"></i> View Groups
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Single GC vs Multi GC Mode Toggle -->
+                    <div class="w-full md:w-1/2">
+                        <label class="block text-xs font-black uppercase tracking-wider text-rose-400 mb-1.5 flex items-center gap-2">
+                            <i data-lucide="layers" class="w-4 h-4"></i>
+                            <span>2. Operational Mode</span>
+                        </label>
+                        <div class="grid grid-cols-2 gap-2.5">
+                            <button type="button" onclick="setStudioMode('multi_gc', true)" id="btnModeMulti" class="py-3 px-3 rounded-xl border border-rose-500/50 bg-rose-500/20 text-white font-black text-xs flex items-center justify-center gap-2 transition-all">
+                                <i data-lucide="globe" class="w-4 h-4 text-rose-400"></i>
+                                <span>Multi-GC Fleet</span>
+                            </button>
+                            <button type="button" onclick="setStudioMode('single_gc', true)" id="btnModeSingle" class="py-3 px-3 rounded-xl border border-white/10 bg-black/30 text-slate-400 font-bold text-xs flex items-center justify-center gap-2 hover:text-white transition-all">
+                                <i data-lucide="target" class="w-4 h-4 text-amber-400"></i>
+                                <span>Single-GC Focus</span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Single GC Target Thread ID / Link Input (shown only when Single-GC selected) -->
+                <div id="singleGcInputContainer" class="hidden pt-3 border-t border-white/10">
+                    <label class="block text-xs font-black uppercase tracking-wider text-amber-300 mb-1 flex items-center justify-between">
+                        <span>Target Group Chat Link or Thread ID</span>
+                        <span class="text-[10px] text-slate-400">Auto-extracts numeric Thread ID</span>
+                    </label>
+                    <input type="text" id="studioSingleThreadInput" placeholder="Paste Instagram group link (https://ig.me/j/...) or numeric thread ID..." class="input-stylish w-full rounded-xl py-3 px-3.5 text-xs text-amber-300 font-mono focus:outline-none placeholder-slate-500">
+                </div>
+            </div>
+
+            <!-- 2. MAIN SCRIPT INPUTS (TARGET, PREFIX, DELAYS, POOLS) -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                
+                <!-- Left Column: Identifiers & Timings -->
+                <div class="space-y-5">
+                    <!-- Target Name (Exclusively for NC / Group Titles) -->
+                    <div class="bg-black/30 border border-amber-500/30 rounded-2xl p-4">
+                        <label class="block text-xs font-black uppercase tracking-wider text-amber-400 mb-1.5 flex items-center justify-between">
+                            <span class="flex items-center gap-1.5">
+                                <i data-lucide="tag" class="w-4 h-4"></i>
+                                <span>Target Name (NC / GC Title)</span>
+                            </span>
+                            <span class="text-[10px] text-amber-400 font-mono bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/30 font-bold">🏷️ NC ONLY</span>
+                        </label>
+                        <input type="text" id="studioTargetName" placeholder="Enter target name for NC (e.g. HATER)..." class="input-stylish w-full rounded-xl py-3 px-3.5 text-sm text-white font-bold focus:outline-none placeholder-slate-500">
+                        <p class="text-[11px] text-amber-200/80 mt-1.5">Sirf Group Chat Title (NC) ke liye hai. <code class="text-amber-300 font-mono">(target)</code>, <code class="text-amber-300 font-mono">{target}</code>, <code class="text-amber-300 font-mono">[target]</code> group titles me replace honge. Messages me mix nahi hoga.</p>
+                    </div>
+
+                    <!-- Message Prefix (Exclusively for Spam Messages) -->
+                    <div class="bg-black/30 border border-rose-500/30 rounded-2xl p-4">
+                        <label class="block text-xs font-black uppercase tracking-wider text-rose-400 mb-1.5 flex items-center justify-between">
+                            <span class="flex items-center gap-1.5">
+                                <i data-lucide="message-square" class="w-4 h-4"></i>
+                                <span>Message Prefix (Spam Messages)</span>
+                            </span>
+                            <span class="text-[10px] text-rose-400 font-mono bg-rose-500/10 px-2 py-0.5 rounded border border-rose-500/30 font-bold">💬 SPAM ONLY</span>
+                        </label>
+                        <input type="text" id="studioPrefix" placeholder="Enter prefix for messages (e.g. HATER or 👑 SCAR 👑)..." class="input-stylish w-full rounded-xl py-3 px-3.5 text-sm text-white font-bold focus:outline-none placeholder-slate-500">
+                        <p class="text-[11px] text-rose-200/80 mt-1.5">Sirf Spam Messages ke liye hai. Har message ke shuru me lagega ya <code class="text-rose-300 font-mono">(prefix)</code> ko replace karega. NC ke sath mix nahi hoga.</p>
+                    </div>
+
+                    <!-- Delays & Speed Controls -->
+                    <div class="bg-black/30 border border-white/10 rounded-2xl p-4 space-y-3.5">
+                        <div class="text-xs font-black uppercase tracking-wider text-rose-400 flex flex-wrap items-center justify-between gap-2">
+                            <div class="flex items-center gap-1.5">
+                                <i data-lucide="clock" class="w-4 h-4"></i>
+                                <span>Delays & Execution Logic</span>
+                            </div>
+                            <span class="text-[10px] text-amber-300 font-mono bg-amber-500/10 px-2.5 py-0.5 rounded-full border border-amber-500/30">
+                                ⚡ Multi-GC: 1 Text ➔ 1 NC ➔ Next GC
+                            </span>
+                        </div>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-300 mb-1">Message Delay (s)</label>
+                                <input type="number" id="studioMsgDelay" min="5" value="30" class="input-stylish w-full rounded-xl py-2 px-3 text-xs text-white font-mono focus:outline-none">
+                                <span class="text-[10px] text-slate-500">Default: 30s</span>
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-300 mb-1">Title Rename (s)</label>
+                                <input type="number" id="studioTitleDelay" min="30" value="200" class="input-stylish w-full rounded-xl py-2 px-3 text-xs text-white font-mono focus:outline-none">
+                                <span class="text-[10px] text-slate-500">Default: 200s</span>
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-300 mb-1">Cycle Cooldown (s)</label>
+                                <input type="number" id="studioCycleWait" min="10" value="60" class="input-stylish w-full rounded-xl py-2 px-3 text-xs text-white font-mono focus:outline-none">
+                                <span class="text-[10px] text-slate-500">Default: 60s</span>
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold text-amber-300 mb-1">Single GC Texts/NC</label>
+                                <input type="number" id="studioTextsPerNc" min="1" max="100" value="5" class="input-stylish w-full rounded-xl py-2 px-3 text-xs text-amber-300 font-mono focus:outline-none border-amber-500/30">
+                                <span class="text-[10px] text-amber-400">Default: 5 texts ➔ 1 NC</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 24/7 Self Ping URL -->
+                    <div class="bg-black/30 border border-white/10 rounded-2xl p-4">
+                        <label class="block text-xs font-black uppercase tracking-wider text-emerald-400 mb-1.5 flex items-center justify-between">
+                            <span>24/7 Self-Ping Keep Alive URL (SELF_URL)</span>
+                            <span class="text-[10px] text-emerald-400 font-mono">NON-STOP</span>
+                        </label>
+                        <input type="text" id="studioSelfUrl" placeholder="https://your-panel.trycloudflare.com/health" class="input-stylish w-full rounded-xl py-2.5 px-3.5 text-xs text-emerald-300 font-mono focus:outline-none placeholder-slate-600">
+                    </div>
+                </div>
+
+                <!-- Right Column: Messages & Group Titles Editors -->
+                <div class="space-y-5">
+                    <!-- Message Pool (message.txt) -->
+                    <div class="bg-black/30 border border-white/10 rounded-2xl p-4 flex flex-col h-72">
+                        <div class="flex items-center justify-between mb-2">
+                            <div class="text-xs font-black uppercase tracking-wider text-rose-400 flex items-center gap-1.5">
+                                <i data-lucide="message-square" class="w-4 h-4"></i>
+                                <span>Message Pool (<span class="font-mono text-white">message.txt</span>)</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span id="studioMsgCount" class="text-[10px] font-mono text-slate-400 font-bold">0 Templates</span>
+                                <button type="button" onclick="clearStudioMessages()" class="text-[10px] text-slate-400 hover:text-white underline">Clear</button>
+                            </div>
+                        </div>
+                        <textarea id="studioMessageText" placeholder="Enter message templates here... Supports (prefix) and (target) placeholders." class="input-stylish w-full flex-1 rounded-xl p-3.5 text-xs text-white font-mono focus:outline-none resize-none leading-relaxed placeholder-slate-600"></textarea>
+                    </div>
+
+                    <!-- Group Titles / NC Pool (nc.txt) -->
+                    <div class="bg-black/30 border border-white/10 rounded-2xl p-4 flex flex-col h-60">
+                        <div class="flex items-center justify-between mb-2">
+                            <div class="text-xs font-black uppercase tracking-wider text-amber-400 flex items-center gap-1.5">
+                                <i data-lucide="tag" class="w-4 h-4"></i>
+                                <span>Group Titles Pool (<span class="font-mono text-white">nc.txt</span>)</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span id="studioNcCount" class="text-[10px] font-mono text-slate-400 font-bold">0 Titles</span>
+                                <button type="button" onclick="clearStudioTitles()" class="text-[10px] text-slate-400 hover:text-white underline">Clear</button>
+                            </div>
+                        </div>
+                        <textarea id="studioNcText" placeholder="Enter NC titles, one per line (supports (target))..." class="input-stylish w-full flex-1 rounded-xl p-3.5 text-xs text-white font-mono focus:outline-none resize-none leading-relaxed placeholder-slate-600"></textarea>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Bottom Save & Sync Button -->
+            <div class="pt-6 mt-6 border-t border-white/10 flex flex-wrap items-center justify-end gap-3">
+                <button type="button" onclick="applyCurrentSettingsToAllAccounts()" class="w-full sm:w-auto px-5 py-3.5 rounded-2xl bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white border border-white/10 font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2" title="Copy Target Name, Prefix, Messages & NC to all accounts">
+                    <i data-lucide="copy" class="w-4 h-4 text-cyan-400"></i>
+                    <span>Apply To All Accounts</span>
+                </button>
+                <button onclick="saveGlobalSettings()" class="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-gradient-to-r from-rose-600 to-rose-500 hover:from-rose-500 hover:to-rose-400 text-white font-black text-xs uppercase tracking-wider shadow-lg shadow-rose-600/30 transition-all active:scale-95 flex items-center justify-center gap-2">
+                    <i data-lucide="save" class="w-4 h-4"></i>
+                    <span id="saveSettingsBtnText">💾 Save Attack Settings</span>
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ================= TAB 2: FLEET ACCOUNTS MATRIX ================= -->
+    <main id="tabViewAccounts" class="hidden space-y-6">
+        <!-- Action Toolbar -->
+        <div class="glass-panel p-4 md:p-5 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
+                <button onclick="openAddAccountModal()" class="w-full sm:w-auto px-5 py-3 rounded-2xl bg-gradient-to-r from-rose-600 to-rose-500 hover:from-rose-500 hover:to-rose-400 text-white font-black text-xs uppercase tracking-wider shadow-lg shadow-rose-600/30 transition-all active:scale-95 flex items-center justify-center gap-2">
+                    <i data-lucide="plus-circle" class="w-4 h-4"></i>
+                    <span>+ Add Instagram Account</span>
+                </button>
+
+                {% if role == 'owner' %}
+                <!-- Owner User Filter Dropdown -->
+                <div class="flex items-center gap-2 bg-black/40 border border-white/10 rounded-2xl px-3.5 py-2 text-xs">
+                    <i data-lucide="filter" class="w-3.5 h-3.5 text-amber-400"></i>
+                    <span class="text-slate-400 font-semibold">User:</span>
+                    <select id="filterOwnerUser" onchange="loadFleetAccounts()" class="bg-transparent text-white font-bold focus:outline-none cursor-pointer">
+                        <option value="ALL" class="bg-slate-900 text-white">All Users (Fleet View)</option>
+                    </select>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Search and Refresh -->
+            <div class="flex items-center gap-2 w-full md:w-auto justify-end">
+                <div class="relative flex-1 md:w-64">
+                    <input type="text" id="accountSearchInput" onkeyup="filterAccountCards()" placeholder="Search accounts..." class="input-stylish w-full rounded-2xl py-2.5 px-3 pl-9 text-xs text-white placeholder-slate-500 focus:outline-none">
+                    <i data-lucide="search" class="w-3.5 h-3.5 text-slate-500 absolute left-3 top-3"></i>
+                </div>
+                <button onclick="loadFleetAccounts()" class="p-2.5 rounded-2xl bg-black/40 border border-white/10 hover:border-rose-500/40 text-slate-400 hover:text-white transition-all" title="Refresh Fleet">
+                    <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Accounts Grid -->
+        <div id="accountsGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+            <!-- Account cards injected dynamically via JavaScript -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="accountsEmptyState" class="hidden glass-panel p-12 text-center">
+            <div class="w-16 h-16 rounded-2xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-center mx-auto mb-4 text-rose-400">
+                <i data-lucide="instagram" class="w-8 h-8"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-1">No Instagram Accounts Linked</h3>
+            <p class="text-xs text-slate-400 max-w-md mx-auto mb-5">Link your Instagram accounts using their session ID. The engine auto-discovers all inbox group chats (members ≥ 1) and equips them for non-stop blasting.</p>
+            <button onclick="openAddAccountModal()" class="px-6 py-3 rounded-2xl bg-gradient-to-r from-rose-600 to-rose-500 text-white font-black text-xs uppercase tracking-wider shadow-lg shadow-rose-600/30 transition-all">
+                + Add Account Now
+            </button>
+        </div>
+    </main>
+
+    <!-- ================= TAB 3: MASTER OWNER MATRIX ================= -->
+    {% if role == 'owner' %}
+    <section id="tabViewOwner" class="hidden space-y-6">
+        <div class="glass-panel p-6 md:p-8 border-amber-500/30">
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-5 mb-5 border-b border-white/10">
+                <div>
+                    <h2 class="text-xl md:text-2xl font-black tracking-tight text-gradient-gold flex items-center gap-2">
+                        <i data-lucide="shield-alert" class="w-5 h-5 text-amber-400"></i>
+                        <span>Master Owner Administration Control</span>
+                    </h2>
+                    <p class="text-xs text-slate-400 mt-1">Full administrative matrix authenticated by Owner Password. Manage users, reset client passwords, and fleet isolation.</p>
+                </div>
+                <div class="px-3.5 py-1.5 rounded-2xl bg-amber-500/15 border border-amber-500/40 text-amber-300 text-xs font-black">
+                    👑 MASTER PRIVILEGE ACTIVE
+                </div>
+            </div>
+
+            <!-- Create New User Form -->
+            <div class="bg-black/30 border border-amber-500/20 rounded-2xl p-5 mb-6">
+                <h3 class="text-xs font-black uppercase tracking-wider text-amber-400 mb-3 flex items-center gap-1.5">
+                    <i data-lucide="user-plus" class="w-4 h-4"></i>
+                    <span>Register New Client User</span>
+                </h3>
+                <form onsubmit="handleCreateUser(event)" class="grid grid-cols-1 sm:grid-cols-4 gap-3">
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-300 mb-1">Username</label>
+                        <input type="text" id="newUsername" placeholder="e.g. VIP_CLIENT" required class="input-stylish w-full rounded-xl py-2.5 px-3 text-xs text-white font-bold focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-300 mb-1">Password</label>
+                        <input type="text" id="newUserPass" placeholder="Enter password" required class="input-stylish w-full rounded-xl py-2.5 px-3 text-xs text-white font-mono focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-300 mb-1">Display Name</label>
+                        <input type="text" id="newUserName" placeholder="e.g. VIP Member" class="input-stylish w-full rounded-xl py-2.5 px-3 text-xs text-white font-bold focus:outline-none">
+                    </div>
+                    <div class="flex items-end">
+                        <button type="submit" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-rose-600 hover:from-amber-400 hover:to-rose-500 text-black font-black text-xs uppercase tracking-wider shadow-lg shadow-amber-500/20 transition-all active:scale-95 flex items-center justify-center gap-1.5">
+                            <i data-lucide="user-check" class="w-3.5 h-3.5"></i>
+                            <span>Create User</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Registered Users Directory Table -->
+            <div class="overflow-x-auto">
+                <div class="text-xs font-black uppercase tracking-wider text-slate-400 mb-2 flex items-center justify-between">
+                    <span>Registered System Users</span>
+                    <button onclick="loadOwnerStatus()" class="text-rose-400 hover:text-rose-300 flex items-center gap-1 font-bold">
+                        <i data-lucide="refresh-cw" class="w-3 h-3"></i> Refresh Directory
+                    </button>
+                </div>
+                <table class="w-full text-left text-xs border-collapse">
+                    <thead>
+                        <tr class="border-b border-white/10 text-slate-400 font-bold uppercase text-[10px]">
+                            <th class="py-3 px-3">Username</th>
+                            <th class="py-3 px-3">Display Name</th>
+                            <th class="py-3 px-3">Password</th>
+                            <th class="py-3 px-3">Accounts Linked</th>
+                            <th class="py-3 px-3 text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ownerUsersTableBody" class="divide-y divide-white/5">
+                        <!-- Injected via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- ================= TAB 4: LIVE TELEMETRY CONSOLE ================= -->
+    <section id="tabViewTelemetry" class="hidden space-y-4">
+        <div class="glass-panel p-5 flex flex-col h-[75vh]">
+            <!-- Terminal Header -->
+            <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3 pb-3 mb-3 border-b border-white/10">
+                <div class="flex items-center gap-2">
+                    <div class="flex items-center gap-1.5 mr-2">
+                        <span class="w-3 h-3 rounded-full bg-red-500/80 inline-block"></span>
+                        <span class="w-3 h-3 rounded-full bg-yellow-500/80 inline-block"></span>
+                        <span class="w-3 h-3 rounded-full bg-emerald-500/80 inline-block"></span>
+                    </div>
+                    <span class="text-xs font-mono font-bold text-slate-300">telemetry://stream • Live Dispatch Matrix</span>
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                </div>
+
+                <!-- Console Controls & Filters -->
+                <div class="flex flex-wrap items-center gap-2 text-xs w-full lg:w-auto justify-between lg:justify-end">
+                    {% if role == 'owner' %}
+                    <!-- Master Owner User Filter -->
+                    <div class="flex items-center gap-1 bg-black/40 px-2 py-1 rounded-xl border border-amber-500/30">
+                        <span class="text-[10px] font-black uppercase text-amber-400 flex items-center gap-1">
+                            <i data-lucide="crown" class="w-3 h-3"></i> Owner:
+                        </span>
+                        <select id="terminalOwnerUserFilter" onchange="onTerminalOwnerFilterChange()" class="bg-transparent text-[11px] text-amber-300 font-bold focus:outline-none cursor-pointer">
+                            <option value="ALL" class="bg-slate-900 text-white">All Users (System)</option>
+                        </select>
+                    </div>
+                    {% endif %}
+
+                    <!-- Account Selector Filter -->
+                    <div class="flex items-center gap-1 bg-black/40 px-2 py-1 rounded-xl border border-rose-500/30">
+                        <span class="text-[10px] font-black uppercase text-rose-400 flex items-center gap-1">
+                            <i data-lucide="instagram" class="w-3 h-3"></i> Account:
+                        </span>
+                        <select id="terminalAccountFilter" onchange="fetchTelemetryLogs()" class="bg-transparent text-[11px] text-cyan-300 font-bold focus:outline-none cursor-pointer">
+                            <option value="ALL" class="bg-slate-900 text-white">🌐 All Fleet Accounts</option>
+                        </select>
+                    </div>
+
+                    <label class="flex items-center gap-1.5 text-slate-400 cursor-pointer select-none text-[11px] ml-1">
+                        <input type="checkbox" id="autoScrollCheck" checked class="rounded border-white/20 bg-slate-900 text-rose-500 focus:ring-0">
+                        <span>Auto-Scroll</span>
+                    </label>
+                    <button onclick="clearConsoleView()" class="px-3 py-1 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 text-[11px] font-bold">
+                        Clear
+                    </button>
+                    <button onclick="fetchTelemetryLogs()" class="p-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300" title="Refresh Live Logs">
+                        <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Terminal Output Area -->
+            <div id="telemetryConsole" class="flex-1 bg-[#06080e] border border-white/10 rounded-2xl p-4 font-mono text-[11.5px] leading-relaxed overflow-y-auto space-y-1.5 select-text">
+                <div class="text-slate-500 italic">⚡ Connected to SERVER GODCLAN V2 telemetry engine. Listening for real-time dispatches...</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= TAB 5: MOD APK & ISO CLIENT ECOSYSTEM ================= -->
+    <section id="tabViewDownloads" class="hidden space-y-6">
+        
+        <!-- Header Banner -->
+        <div class="glass-panel p-6 md:p-8 relative overflow-hidden border-emerald-500/30">
+            <div class="absolute -right-16 -top-16 w-60 h-60 bg-emerald-600/15 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/40 text-emerald-400 text-[10px] font-black uppercase tracking-wider mb-2">
+                        <i data-lucide="smartphone" class="w-3.5 h-3.5"></i>
+                        <span>OFFICIAL COMPANION SUITE • ZERO CHECKPOINT</span>
+                    </div>
+                    <h2 class="text-2xl md:text-3xl font-black tracking-tight text-white flex items-center gap-2.5">
+                        <span>📱 MOD APK & HYBRID ISO CLIENT</span>
+                        <span class="px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">v2.4.0</span>
+                    </h2>
+                    <p class="text-xs md:text-sm text-slate-300 mt-1.5 max-w-2xl leading-relaxed">
+                        Download companion apps directly to your Android device or PC. Log in safely using real Samsung Galaxy S23 Ultra TLS device identity, automatically sniff <code class="text-rose-400 font-mono">sessionid</code> cookies without browser tools, and run attacks same like this panel!
+                    </p>
+                </div>
+                <div class="shrink-0 flex items-center gap-2">
+                    <button onclick="loadDownloadInfo()" class="px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 text-xs font-bold flex items-center gap-1.5 transition-all">
+                        <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+                        <span>Refresh Sizes</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3 Download Cards: Android APK, Apple iOS Mod App, and PC Hybrid ISO -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+            <!-- Card 1: Android MOD APK -->
+            <div class="glass-panel p-6 md:p-7 flex flex-col justify-between border-emerald-500/40 relative overflow-hidden group hover:border-emerald-400/60 transition-all">
+                <div class="space-y-4">
+                    <div class="flex items-start justify-between gap-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 shadow-lg shadow-emerald-500/10">
+                                <i data-lucide="smartphone" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <h3 class="text-lg font-black text-white">SERVER GODCLAN MOD APK</h3>
+                                    <span class="px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 text-[10px] font-mono font-bold">APK</span>
+                                </div>
+                                <p class="text-[11px] text-slate-400">Android 8.0 to 15 • ARM64 / ARMv7 / x86_64</p>
+                            </div>
+                        </div>
+                        <span class="px-2.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-[10px] font-black uppercase">Active</span>
+                    </div>
+
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        Dedicated Android client with Samsung Galaxy S23 Ultra device hardware spoofing. 100% genuine compiled and signed APK that installs cleanly without any package parsing errors.
+                    </p>
+
+                    <!-- Features Checklist -->
+                    <div class="space-y-2 pt-2 border-t border-white/10 text-xs">
+                        <div class="flex items-center gap-2 text-slate-200">
+                            <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+                            <span><strong>Zero Parse Errors:</strong> Guaranteed clean install on all Android devices.</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-slate-200">
+                            <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+                            <span><strong>In-App Instagram Login:</strong> Bypasses checkpoints with authentic TLS.</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-slate-200">
+                            <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+                            <span><strong>Auto Cookie Sniffer:</strong> Extracts <code class="text-rose-400 font-mono">sessionid</code> & <code class="text-cyan-400 font-mono">csrftoken</code>.</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-slate-200">
+                            <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+                            <span><strong>1-Click Panel Sync:</strong> Pushes accounts to your online bot fleet.</span>
+                        </div>
+                    </div>
+
+                    <!-- File Details Box -->
+                    <div class="p-3 rounded-xl bg-black/40 border border-white/10 font-mono text-[11px] space-y-1">
+                        <div class="flex justify-between text-slate-400">
+                            <span>Package:</span>
+                            <span class="text-slate-200">com.servergodclan.v2</span>
+                        </div>
+                        <div class="flex justify-between text-slate-400">
+                            <span>Filename:</span>
+                            <span class="text-emerald-300">server_godclan_v2_mod.apk</span>
+                        </div>
+                        <div class="flex justify-between text-slate-400">
+                            <span>File Size:</span>
+                            <span id="apkSizeDisplay" class="text-white font-bold">~12.8 MB</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="pt-5 space-y-2.5">
+                    <a href="/download/apk" download="server_godclan_v2_mod.apk" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 hover:from-emerald-500 hover:to-teal-500 text-white font-black text-xs uppercase tracking-wider shadow-lg shadow-emerald-600/30 transition-all active:scale-95 flex items-center justify-center gap-2">
+                        <i data-lucide="download" class="w-4 h-4"></i>
+                        <span>Direct Download MOD APK</span>
+                    </a>
+                    <button onclick="copyDownloadUrl('apk', this)" class="w-full py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 text-xs font-bold transition-all flex items-center justify-center gap-2">
+                        <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                        <span class="btn-copy-label">Copy APK Link</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Card 2: Apple iOS Mod App -->
+            <div class="glass-panel p-6 md:p-7 flex flex-col justify-between border-rose-500/40 relative overflow-hidden group hover:border-rose-400/60 transition-all">
+                <div class="space-y-4">
+                    <div class="flex items-start justify-between gap-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 rounded-2xl bg-rose-500/20 border border-rose-500/40 flex items-center justify-center text-rose-400 shadow-lg shadow-rose-500/10">
+                                <span class="text-2xl leading-none">🍏</span>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <h3 class="text-lg font-black text-white">SERVER GODCLAN iOS APP</h3>
+                                    <span class="px-2 py-0.5 rounded-md bg-rose-500/20 text-rose-300 text-[10px] font-mono font-bold">iOS</span>
+                                </div>
+                                <p class="text-[11px] text-slate-400">Apple iPhone & iPad • iOS 14 to 18+ • WebClip</p>
+                            </div>
+                        </div>
+                        <span class="px-2.5 py-1 rounded-full bg-rose-500/15 border border-rose-500/30 text-rose-400 text-[10px] font-black uppercase">Apple</span>
+                    </div>
+
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        Dedicated 1-Click Apple WebClip configuration profile. Installs full native-style icon directly to your iPhone home screen with zero Safari browser UI bars.
+                    </p>
+
+                    <!-- Features Checklist -->
+                    <div class="space-y-2 pt-2 border-t border-white/10 text-xs">
+                        <div class="flex items-center gap-2 text-slate-200">
+                            <i data-lucide="check-circle" class="w-4 h-4 text-rose-400 shrink-0"></i>
+                            <span><strong>1-Click Apple Profile:</strong> Installs via iPhone Settings in 5 seconds.</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-slate-200">
+                            <i data-lucide="check-circle" class="w-4 h-4 text-rose-400 shrink-0"></i>
+                            <span><strong>Fullscreen Standalone UI:</strong> Direct full-screen app experience.</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-slate-200">
+                            <i data-lucide="check-circle" class="w-4 h-4 text-rose-400 shrink-0"></i>
+                            <span><strong>Safari PWA Compatible:</strong> Instant "Add to Home Screen" support.</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-slate-200">
+                            <i data-lucide="check-circle" class="w-4 h-4 text-rose-400 shrink-0"></i>
+                            <span><strong>Zero Sideload Expiry:</strong> Never revokes, no 7-day Apple ID refresh.</span>
+                        </div>
+                    </div>
+
+                    <!-- File Details Box -->
+                    <div class="p-3 rounded-xl bg-black/40 border border-white/10 font-mono text-[11px] space-y-1">
+                        <div class="flex justify-between text-slate-400">
+                            <span>Type:</span>
+                            <span class="text-slate-200">Apple WebClip Profile</span>
+                        </div>
+                        <div class="flex justify-between text-slate-400">
+                            <span>Filename:</span>
+                            <span class="text-rose-300">server_godclan.mobileconfig</span>
+                        </div>
+                        <div class="flex justify-between text-slate-400">
+                            <span>Profile Size:</span>
+                            <span class="text-white font-bold">~15 KB</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="pt-5 space-y-2.5">
+                    <a href="/install_ios" target="_blank" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-rose-600 via-pink-600 to-rose-600 hover:from-rose-500 hover:to-pink-500 text-white font-black text-xs uppercase tracking-wider shadow-lg shadow-rose-600/30 transition-all active:scale-95 flex items-center justify-center gap-2">
+                        <i data-lucide="shield-check" class="w-4 h-4"></i>
+                        <span>🍏 1-Click Install iOS App</span>
+                    </a>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button onclick="copyDownloadUrl('ios', this)" class="py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 text-xs font-bold transition-all flex items-center justify-center gap-1.5">
+                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                            <span class="btn-copy-label">Copy Link</span>
+                        </button>
+                        <a href="/download/ios/file" class="py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 text-xs font-bold transition-all flex items-center justify-center gap-1.5 text-center">
+                            <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                            <span>Get .mobileconfig</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: PC & Hybrid ISO Suite -->
+            <div class="glass-panel p-6 md:p-7 flex flex-col justify-between border-violet-500/40 relative overflow-hidden group hover:border-violet-400/60 transition-all">
+                <div class="space-y-4">
+                    <div class="flex items-start justify-between gap-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 rounded-2xl bg-violet-500/20 border border-violet-500/40 flex items-center justify-center text-violet-400 shadow-lg shadow-violet-500/10">
+                                <i data-lucide="disc" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <h3 class="text-lg font-black text-white">GODCLAN HYBRID ISO SUITE</h3>
+                                    <span class="px-2 py-0.5 rounded-md bg-violet-500/20 text-violet-300 text-[10px] font-mono font-bold">ISO</span>
+                                </div>
+                                <p class="text-[11px] text-slate-400">Windows 10/11 • macOS • Desktop Bot Suite</p>
+                            </div>
+                        </div>
+                        <span class="px-2.5 py-1 rounded-full bg-violet-500/15 border border-violet-500/30 text-violet-400 text-[10px] font-black uppercase">Universal</span>
+                    </div>
+
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        Universal ISO 9660 virtual image. Mounts instantly in Windows/Mac. Bundles standalone executable, batch launcher, and companion scripts.
+                    </p>
+
+                    <!-- Features Checklist -->
+                    <div class="space-y-2 pt-2 border-t border-white/10 text-xs">
+                        <div class="flex items-center gap-2 text-slate-200">
+                            <i data-lucide="check-circle" class="w-4 h-4 text-violet-400 shrink-0"></i>
+                            <span><strong>Mountable Disc Image:</strong> Right-click to mount in Windows 10/11.</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-slate-200">
+                            <i data-lucide="check-circle" class="w-4 h-4 text-violet-400 shrink-0"></i>
+                            <span><strong>Offline Matrix Engine:</strong> Standalone botting without browser dependency.</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-slate-200">
+                            <i data-lucide="check-circle" class="w-4 h-4 text-violet-400 shrink-0"></i>
+                            <span><strong>Batch Automation:</strong> Auto-relaunch watchdog on Windows.</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-slate-200">
+                            <i data-lucide="check-circle" class="w-4 h-4 text-violet-400 shrink-0"></i>
+                            <span><strong>Master Key Pre-Config:</strong> Pre-configured for <code class="text-amber-400 font-mono">SCAR@12345</code>.</span>
+                        </div>
+                    </div>
+
+                    <!-- File Details Box -->
+                    <div class="p-3 rounded-xl bg-black/40 border border-white/10 font-mono text-[11px] space-y-1">
+                        <div class="flex justify-between text-slate-400">
+                            <span>Format:</span>
+                            <span class="text-slate-200">ISO 9660 Disc Image</span>
+                        </div>
+                        <div class="flex justify-between text-slate-400">
+                            <span>Filename:</span>
+                            <span class="text-violet-300">server_godclan_v2_client.iso</span>
+                        </div>
+                        <div class="flex justify-between text-slate-400">
+                            <span>File Size:</span>
+                            <span id="isoSizeDisplay" class="text-white font-bold">~28.0 MB</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="pt-5 space-y-2.5">
+                    <a href="/download/iso" download="server_godclan_v2_client.iso" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-violet-600 via-purple-600 to-violet-600 hover:from-violet-500 hover:to-purple-500 text-white font-black text-xs uppercase tracking-wider shadow-lg shadow-violet-600/30 transition-all active:scale-95 flex items-center justify-center gap-2">
+                        <i data-lucide="download" class="w-4 h-4"></i>
+                        <span>Direct Download ISO Suite</span>
+                    </a>
+                    <button onclick="copyDownloadUrl('iso', this)" class="w-full py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 text-xs font-bold transition-all flex items-center justify-center gap-2">
+                        <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                        <span class="btn-copy-label">Copy ISO Link</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Comprehensive Step-by-Step "Same Like" Usage Guide -->
+        <div class="glass-panel p-6 md:p-8">
+            <div class="flex items-center gap-3 mb-6 pb-4 border-b border-white/10">
+                <div class="w-10 h-10 rounded-xl bg-rose-500/20 border border-rose-500/40 flex items-center justify-center text-rose-400">
+                    <i data-lucide="help-circle" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <h3 class="text-lg font-black text-white">📖 HOW TO USE SAME LIKE PANEL (STEP-BY-STEP)</h3>
+                    <p class="text-xs text-slate-400">Complete setup workflow for Android APK, Windows ISO, and iOS companion</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                
+                <!-- Step 1: Android APK Installation -->
+                <div class="p-4 rounded-2xl bg-black/40 border border-white/10 relative flex flex-col justify-between space-y-3">
+                    <div>
+                        <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 font-mono font-black flex items-center justify-center text-xs mb-3 border border-emerald-500/40">
+                            01
+                        </div>
+                        <h4 class="text-sm font-bold text-white mb-1">Android APK Setup</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            Click <strong class="text-emerald-400">Direct Download APK</strong> on your phone. In Android settings, enable <em>"Install Unknown Apps"</em> for your browser and install. Guaranteed zero parse errors.
+                        </p>
+                    </div>
+                    <div class="text-[10.5px] font-mono text-emerald-400 bg-black/60 p-2 rounded-xl border border-white/5">
+                        📦 Clean Android 8 to 15 Verified APK
+                    </div>
+                </div>
+
+                <!-- Step 2: Apple iOS 1-Click Profile -->
+                <div class="p-4 rounded-2xl bg-black/40 border border-white/10 relative flex flex-col justify-between space-y-3">
+                    <div>
+                        <div class="w-8 h-8 rounded-lg bg-rose-500/20 text-rose-400 font-mono font-black flex items-center justify-center text-xs mb-3 border border-rose-500/40">
+                            02
+                        </div>
+                        <h4 class="text-sm font-bold text-white mb-1">Apple iOS Setup</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            Open panel in iPhone <strong>Safari</strong> browser. Tap <strong class="text-rose-400">1-Click Install iOS App</strong> &rarr; tap <em>Allow</em> &rarr; open iPhone <strong>Settings</strong> &rarr; tap <strong>Profile Downloaded</strong> &rarr; <em>Install</em>.
+                        </p>
+                    </div>
+                    <div class="text-[10.5px] font-mono text-rose-300 bg-black/60 p-2 rounded-xl border border-white/5">
+                        🍏 1-Click Apple Profile WebClip
+                    </div>
+                </div>
+
+                <!-- Step 3: Login Instagram & Auto-Sniff -->
+                <div class="p-4 rounded-2xl bg-black/40 border border-white/10 relative flex flex-col justify-between space-y-3">
+                    <div>
+                        <div class="w-8 h-8 rounded-lg bg-cyan-500/20 text-cyan-400 font-mono font-black flex items-center justify-center text-xs mb-3 border border-cyan-500/40">
+                            03
+                        </div>
+                        <h4 class="text-sm font-bold text-white mb-1">Login IG Inside App</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            Open the app and log into your IG account. Because the client emulates an authentic Android S23 Ultra TLS session, Instagram does not prompt checkpoint errors.
+                        </p>
+                    </div>
+                    <div class="text-[10.5px] font-mono text-cyan-300 bg-black/60 p-2 rounded-xl border border-white/5">
+                        🛡️ S23 Ultra TLS • Zero Checkpoints
+                    </div>
+                </div>
+
+                <!-- Step 4: Auto-Sniff & Fleet Sync -->
+                <div class="p-4 rounded-2xl bg-black/40 border border-white/10 relative flex flex-col justify-between space-y-3">
+                    <div>
+                        <div class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 font-mono font-black flex items-center justify-center text-xs mb-3 border border-amber-500/40">
+                            04
+                        </div>
+                        <h4 class="text-sm font-bold text-white mb-1">1-Click Fleet Sync</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            Paste your captured <code class="text-rose-300">sessionid</code> into the Sync Box below to instantly link your account to the autonomous background blasting fleet!
+                        </p>
+                    </div>
+                    <div class="text-[10.5px] font-mono text-amber-300 bg-black/60 p-2 rounded-xl border border-white/5">
+                        ⚡ Real-Time Multi-Account Matrix
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Direct In-Panel Mobile Session Sniffer Sync Box -->
+        <div class="glass-panel p-6 md:p-8 border-rose-500/30">
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 rounded-xl bg-rose-500/20 border border-rose-500/40 flex items-center justify-center text-rose-400">
+                    <i data-lucide="refresh-cw" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <h3 class="text-base font-black text-white">⚡ INSTANT CLIENT SESSION SYNC</h3>
+                    <p class="text-[11px] text-slate-400">Paste session tokens captured from the MOD APK to instantly add them to your fleet</p>
+                </div>
+            </div>
+
+            <form onsubmit="handleClientSyncSubmit(event)" class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">Instagram Session ID <span class="text-rose-400">*</span></label>
+                        <input type="text" id="syncSessionIdInput" required placeholder="Paste sessionid from APK (e.g. 705183921%3ABVj9...)" class="input-stylish w-full rounded-xl py-3 px-3.5 text-xs text-white font-mono focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">CSRF Token (Optional)</label>
+                        <input type="text" id="syncCsrfTokenInput" placeholder="U7Cig3ldICjza7ZNNRmhVnYVrioIfBiA" class="input-stylish w-full rounded-xl py-3 px-3.5 text-xs text-white font-mono focus:outline-none">
+                    </div>
+                </div>
+
+                <div class="flex justify-end pt-1">
+                    <button type="submit" id="btnClientSync" class="px-6 py-3 rounded-xl bg-gradient-to-r from-rose-600 via-rose-500 to-rose-600 hover:from-rose-500 hover:to-rose-400 text-white font-black text-xs uppercase tracking-wider shadow-lg shadow-rose-600/30 transition-all active:scale-95 flex items-center gap-2">
+                        <i data-lucide="zap" class="w-4 h-4"></i>
+                        <span>Sync Account to Fleet</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+    </section>
+
+    <!-- ================= MODAL: ADD INSTAGRAM ACCOUNT ================= -->
+    <div id="modalAddAccount" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden items-center justify-center p-4">
+        <div class="glass-panel p-6 md:p-8 max-w-md w-full border-rose-500/40 relative">
+            <button onclick="closeAddAccountModal()" class="absolute right-5 top-5 text-slate-400 hover:text-white">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <div class="flex items-center gap-3 mb-5">
+                <div class="w-10 h-10 rounded-xl bg-rose-500/20 border border-rose-500/40 flex items-center justify-center text-rose-400">
+                    <i data-lucide="user-plus" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <h3 class="text-base font-black text-white">Add Instagram Account</h3>
+                    <p class="text-[11px] text-slate-400">Choose Session ID or Username + Password</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2 mb-4">
+                <button type="button" id="loginModeSessionBtn" onclick="switchAccountLoginMode('session')" class="py-2.5 rounded-xl bg-rose-600 text-white text-[11px] font-black uppercase">Session ID</button>
+                <button type="button" id="loginModePasswordBtn" onclick="switchAccountLoginMode('password')" class="py-2.5 rounded-xl bg-white/5 text-slate-400 text-[11px] font-black uppercase">Username + Password</button>
+            </div>
+
+            <form onsubmit="handleAddAccountSubmit(event)" class="space-y-4">
+                <div id="sessionLoginFields">
+                    <label class="block text-xs font-black uppercase tracking-wider text-slate-300 mb-1">Instagram Session ID <span class="text-rose-400">*</span></label>
+                    <textarea id="modalSessionId" placeholder="Paste sessionid cookie" class="input-stylish w-full rounded-2xl p-3 text-xs text-white font-mono focus:outline-none h-24 resize-none placeholder-slate-600"></textarea>
+                    <span class="text-[10px] text-slate-400">Session ID is used directly; it is not displayed back after login.</span>
+                </div>
+
+                <div id="passwordLoginFields" class="hidden space-y-3">
+                    <div>
+                        <label class="block text-xs font-black uppercase tracking-wider text-slate-300 mb-1">Instagram Username</label>
+                        <input type="text" id="modalUsername" autocomplete="username" placeholder="username" class="input-stylish w-full rounded-xl py-2.5 px-3 text-xs text-white focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-black uppercase tracking-wider text-slate-300 mb-1">Instagram Password</label>
+                        <input type="password" id="modalPassword" autocomplete="current-password" placeholder="Password" class="input-stylish w-full rounded-xl py-2.5 px-3 text-xs text-white focus:outline-none">
+                        <span class="text-[10px] text-slate-400">Password is used only for the live login attempt and is not saved.</span>
+                    </div>
+                </div>
+
+                <div id="verificationFields" class="hidden space-y-2">
+                    <div class="p-3 rounded-xl border border-amber-500/30 bg-amber-500/10">
+                        <div class="text-xs font-black text-amber-300">Verification required</div>
+                        <div class="text-[10px] text-slate-300 mt-1">Enter the code Instagram sent to your configured verification method.</div>
+                    </div>
+                    <input type="text" id="modalVerificationCode" inputmode="numeric" autocomplete="one-time-code" maxlength="12" placeholder="Verification code" class="input-stylish w-full rounded-xl py-2.5 px-3 text-sm text-white font-mono focus:outline-none">
+                </div>
+
+                <div id="csrfField">
+                    <label class="block text-xs font-black uppercase tracking-wider text-slate-300 mb-1">CSRF Token (Optional)</label>
+                    <input type="text" id="modalCsrfToken" placeholder="Optional" class="input-stylish w-full rounded-xl py-2.5 px-3 text-xs text-white font-mono focus:outline-none placeholder-slate-600">
+                </div>
+
+                <div class="pt-2">
+                    <button type="submit" id="modalAddSubmitBtn" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-rose-600 to-rose-500 hover:from-rose-500 hover:to-rose-400 text-white font-black text-xs uppercase tracking-wider shadow-lg shadow-rose-600/30 transition-all active:scale-95 flex items-center justify-center gap-2">
+                        <i data-lucide="shield-check" class="w-4 h-4"></i>
+                        <span id="modalAddSubmitText">Verify & Add to Fleet</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ================= MODAL: VIEW DISCOVERED GROUP CHATS ================= -->
+    <div id="modalViewGroups" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden items-center justify-center p-4">
+        <div class="glass-panel p-6 md:p-7 max-w-xl w-full border-rose-500/40 relative max-h-[85vh] flex flex-col">
+            <button onclick="closeDiscoveredGroupsModal()" class="absolute right-5 top-5 text-slate-400 hover:text-white">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <div class="flex items-center gap-3 mb-4 pb-3 border-b border-white/10">
+                <div class="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400">
+                    <i data-lucide="folder" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <h3 class="text-base font-black text-white" id="modalGroupsAccountTitle">Discovered Inbox Groups</h3>
+                    <p class="text-[11px] text-slate-400">Auto-fetched group chats with members ≥ 1</p>
+                </div>
+            </div>
+
+            <!-- Groups List Container -->
+            <div id="modalGroupsList" class="flex-1 overflow-y-auto space-y-2.5 pr-1">
+                <!-- Injected via JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= JAVASCRIPT LOGIC ================= -->
+    <script>
+        lucide.createIcons();
+
+        let allFleetAccounts = {};
+        let currentUserRole = "{{ role }}";
+        let currentUsername = "{{ user }}";
+        let currentActiveTab = 'studio';
+        let studioBlastingMode = 'multi_gc';
+        let userHasExplicitlyChosenMode = false;
+
+        // --- TAB SWITCHER ---
+        function switchTab(tab) {
+            currentActiveTab = tab;
+            const views = {
+                studio: document.getElementById('tabViewStudio'),
+                accounts: document.getElementById('tabViewAccounts'),
+                owner: document.getElementById('tabViewOwner'),
+                telemetry: document.getElementById('tabViewTelemetry'),
+                downloads: document.getElementById('tabViewDownloads')
+            };
+            const navs = {
+                studio: document.getElementById('tabNavStudio'),
+                accounts: document.getElementById('tabNavAccounts'),
+                owner: document.getElementById('tabNavOwner'),
+                telemetry: document.getElementById('tabNavTelemetry'),
+                downloads: document.getElementById('tabNavDownloads')
+            };
+
+            for (const key in views) {
+                if (views[key]) {
+                    if (key === tab) {
+                        views[key].classList.remove('hidden');
+                        navs[key].className = "px-5 py-3 rounded-2xl flex items-center gap-2.5 transition-all tab-active";
+                    } else {
+                        views[key].classList.add('hidden');
+                        navs[key].className = "px-5 py-3 rounded-2xl flex items-center gap-2.5 transition-all text-slate-400 hover:text-white";
+                    }
+                }
+            }
+            lucide.createIcons();
+
+            if (tab === 'studio') {
+                loadGlobalSettings();
+            } else if (tab === 'accounts') {
+                loadFleetAccounts();
+            } else if (tab === 'owner') {
+                loadOwnerStatus();
+            } else if (tab === 'telemetry') {
+                fetchTelemetryLogs();
+            } else if (tab === 'downloads') {
+                loadDownloadInfo();
+            }
+        }
+
+        // --- DOWNLOADS & CLIENT SYNC HELPERS ---
+        async function loadDownloadInfo() {
+            try {
+                const res = await fetch('/api/downloads/info');
+                const data = await res.json();
+                if (data.status === 'ok') {
+                    if (data.apk && data.apk.size_formatted) {
+                        const el = document.getElementById('apkSizeDisplay');
+                        if (el) el.innerText = data.apk.size_formatted;
+                    }
+                    if (data.iso && data.iso.size_formatted) {
+                        const el = document.getElementById('isoSizeDisplay');
+                        if (el) el.innerText = data.iso.size_formatted;
+                    }
+                }
+            } catch (e) {
+                console.error("Error loading download info:", e);
+            }
+        }
+
+        function copyDownloadUrl(type, btn) {
+            const display = document.getElementById('tunnelUrlDisplay');
+            let baseUrl = (display && display.innerText && display.innerText.startsWith('http')) ? display.innerText.trim() : window.location.origin;
+            baseUrl = baseUrl.replace(/\/+$/, '');
+            let fullUrl = `${baseUrl}/download/${type}`;
+            if (type === 'ios') {
+                fullUrl = `${baseUrl}/install_ios`;
+            }
+
+            navigator.clipboard.writeText(fullUrl).then(() => {
+                const label = btn ? btn.querySelector('.btn-copy-label') : null;
+                if (label) {
+                    const orig = label.innerText;
+                    label.innerText = "✓ Link Copied to Clipboard!";
+                    setTimeout(() => { label.innerText = orig; }, 2500);
+                } else {
+                    alert(`✓ Download link copied:\n${fullUrl}`);
+                }
+            }).catch(() => {
+                prompt("Copy this download link:", fullUrl);
+            });
+        }
+
+        async function handleClientSyncSubmit(event) {
+            event.preventDefault();
+            const sess = document.getElementById('syncSessionIdInput').value.trim();
+            const csrf = document.getElementById('syncCsrfTokenInput').value.trim();
+            const btn = document.getElementById('btnClientSync');
+
+            if (!sess) {
+                alert("Please paste a valid sessionid cookie!");
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = '<span class="animate-spin inline-block mr-2">⏳</span> Syncing...';
+
+            try {
+                const res = await fetch('/api/client/sync', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ sessionid: sess, csrf_token: csrf })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    alert(`✓ ${data.message || 'Account successfully added to fleet!'}`);
+                    document.getElementById('syncSessionIdInput').value = '';
+                    document.getElementById('syncCsrfTokenInput').value = '';
+                    loadFleetAccounts();
+                    switchTab('accounts');
+                } else {
+                    alert("Sync failed: " + (data.error || "Unknown error"));
+                }
+            } catch (err) {
+                console.error(err);
+                alert("Network error during sync: " + err.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i data-lucide="zap" class="w-4 h-4"></i><span>Sync Account to Fleet</span>';
+                lucide.createIcons();
+            }
+        }
+
+        // --- CLOUDFLARE TUNNEL URL ---
+        async function fetchTunnelUrl() {
+            try {
+                const res = await fetch('/api/tunnel_url');
+                const data = await res.json();
+                const display = document.getElementById('tunnelUrlDisplay');
+                const link = document.getElementById('tunnelExternalLink');
+                if (data.url) {
+                    display.innerText = data.url;
+                    display.className = "font-mono text-emerald-400 font-semibold truncate";
+                    link.href = data.url;
+                } else {
+                    display.innerText = "Tunnel connecting...";
+                    display.className = "font-mono text-amber-400 font-semibold truncate";
+                    link.href = "#";
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        function copyTunnelUrl() {
+            const display = document.getElementById('tunnelUrlDisplay');
+            const url = display.innerText;
+            if (url && url.startsWith('http')) {
+                navigator.clipboard.writeText(url).then(() => {
+                    const btn = document.getElementById('copyBtnText');
+                    btn.innerText = "Copied!";
+                    setTimeout(() => { btn.innerText = "Copy"; }, 2000);
+                });
+            }
+        }
+
+        // --- FLEET ACCOUNTS FETCHER ---
+        async function loadFleetAccounts() {
+            try {
+                let url = '/api/accounts';
+                const ownerFilter = document.getElementById('filterOwnerUser');
+                if (ownerFilter && ownerFilter.value) {
+                    url += '?owner_filter=' + encodeURIComponent(ownerFilter.value);
+                }
+
+                const res = await fetch(url);
+                const accounts = await res.json();
+                allFleetAccounts = accounts;
+                renderAccountCards(accounts);
+                updateStudioAccountSelect(accounts);
+                updateTerminalAccountSelect(accounts);
+                updateKpis(accounts);
+            } catch (e) {
+                console.error("Failed to load accounts:", e);
+            }
+        }
+
+        function updateTerminalAccountSelect(accounts) {
+            const select = document.getElementById('terminalAccountFilter');
+            if (!select) return;
+
+            const curVal = select.value || 'ALL';
+            let html = '<option value="ALL" class="bg-slate-900 text-white">🌐 All Fleet Accounts</option>';
+            
+            const uids = Object.keys(accounts);
+            uids.forEach(uid => {
+                const acc = accounts[uid];
+                const isRun = acc.is_running ? '🟢' : '⚪';
+                html += `<option value="${uid}" ${curVal === uid ? 'selected' : ''} class="bg-slate-900 text-white">${isRun} @${acc.username || uid} (#${uid})</option>`;
+            });
+
+            if (select.innerHTML !== html) {
+                select.innerHTML = html;
+                select.value = curVal;
+            }
+        }
+
+        async function refreshFleetStatusOnly() {
+            try {
+                let url = '/api/accounts';
+                const ownerFilter = document.getElementById('filterOwnerUser');
+                if (ownerFilter && ownerFilter.value) {
+                    url += '?owner_filter=' + encodeURIComponent(ownerFilter.value);
+                }
+
+                const res = await fetch(url);
+                const accounts = await res.json();
+                allFleetAccounts = accounts;
+                updateKpis(accounts);
+                onStudioAccountChange(false);
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        function updateStudioAccountSelect(accounts) {
+            const select = document.getElementById('studioAccountSelect');
+            if (!select) return;
+
+            const curVal = select.value || 'ALL';
+            let html = '<option value="ALL">🌐 All Fleet Accounts (Simultaneous Attack)</option>';
+            
+            const uids = Object.keys(accounts);
+            uids.forEach(uid => {
+                const acc = accounts[uid];
+                const isRun = acc.is_running ? '🟢 RUNNING' : '⚪ IDLE';
+                const groupsCount = acc.groups_count || (acc.groups ? acc.groups.length : 0);
+                html += `<option value="${uid}" ${curVal === uid ? 'selected' : ''}>@${acc.username || uid} (#${uid}) - ${groupsCount} GCs [${isRun}]</option>`;
+            });
+
+            if (select.innerHTML !== html) {
+                select.innerHTML = html;
+                select.value = curVal;
+            }
+            onStudioAccountChange(false);
+        }
+
+        let defaultGlobalSettings = {
+            target_name: '',
+            prefix: '',
+            delay_msg: 30,
+            delay_title: 200,
+            cycle_wait: 60,
+            texts_per_nc: 5,
+            self_url: '',
+            message_text: '',
+            nc_text: ''
+        };
+
+        function onStudioAccountChange(fromUserInteraction = false) {
+            const select = document.getElementById('studioAccountSelect');
+            const val = select ? select.value : 'ALL';
+            const statusText = document.getElementById('studioAccountStatusText');
+            const groupsCountEl = document.getElementById('studioAccountGroupsCount');
+            const badge = document.getElementById('studioTargetAccountBadge');
+            const saveBtnText = document.getElementById('saveSettingsBtnText');
+
+            if (val === 'ALL') {
+                let totalGroups = 0;
+                let anyRunning = false;
+                Object.values(allFleetAccounts).forEach(a => {
+                    totalGroups += (a.groups_count || (a.groups ? a.groups.length : 0));
+                    if (a.is_running) anyRunning = true;
+                });
+                if (statusText) {
+                    statusText.innerText = anyRunning ? "FLEET RUNNING" : "FLEET IDLE";
+                    statusText.className = anyRunning ? "text-emerald-400 font-bold" : "text-slate-300 font-bold";
+                }
+                if (groupsCountEl) groupsCountEl.innerText = totalGroups;
+                if (badge) badge.innerHTML = "🌐 ALL ACCOUNTS (GLOBAL TEMPLATE)";
+                if (saveBtnText) saveBtnText.innerText = "💾 Save Global Template";
+
+                if (fromUserInteraction) {
+                    document.getElementById('studioTargetName').value = defaultGlobalSettings.target_name || '';
+                    document.getElementById('studioPrefix').value = defaultGlobalSettings.prefix || '';
+                    document.getElementById('studioSingleThreadInput').value = '';
+                    document.getElementById('studioMsgDelay').value = defaultGlobalSettings.delay_msg || 30;
+                    document.getElementById('studioTitleDelay').value = defaultGlobalSettings.delay_title || 200;
+                    document.getElementById('studioCycleWait').value = defaultGlobalSettings.cycle_wait || 60;
+                    document.getElementById('studioTextsPerNc').value = defaultGlobalSettings.texts_per_nc || 5;
+                    document.getElementById('studioMessageText').value = defaultGlobalSettings.message_text || '';
+                    document.getElementById('studioNcText').value = defaultGlobalSettings.nc_text || '';
+                    updateStudioCounters();
+                }
+            } else {
+                const acc = allFleetAccounts[val];
+                if (acc) {
+                    const isRun = acc.is_running;
+                    if (statusText) {
+                        statusText.innerText = isRun ? "ACTIVE / RUNNING" : "IDLE";
+                        statusText.className = isRun ? "text-emerald-400 font-bold" : "text-slate-300 font-bold";
+                    }
+                    const count = acc.groups_count || (acc.groups ? acc.groups.length : 0);
+                    if (groupsCountEl) groupsCountEl.innerText = count;
+                    if (badge) badge.innerHTML = `👤 INDIVIDUAL: @${acc.username || val} (#${val})`;
+                    if (saveBtnText) saveBtnText.innerText = `💾 Save Settings for @${acc.username || val}`;
+
+                    if (fromUserInteraction) {
+                        const s = acc.settings || {};
+                        document.getElementById('studioTargetName').value = acc.target_name || s.target_name || '';
+                        document.getElementById('studioPrefix').value = acc.prefix || s.msg_prefix || '';
+                        document.getElementById('studioSingleThreadInput').value = acc.single_thread_id || '';
+
+                        document.getElementById('studioMsgDelay').value = (s.between_messages_sec != null) ? s.between_messages_sec : (defaultGlobalSettings.delay_msg || 30);
+                        document.getElementById('studioTitleDelay').value = (s.between_renames_sec != null) ? s.between_renames_sec : (defaultGlobalSettings.delay_title || 200);
+                        document.getElementById('studioCycleWait').value = (s.cycle_wait_sec != null) ? s.cycle_wait_sec : (defaultGlobalSettings.cycle_wait || 60);
+                        document.getElementById('studioTextsPerNc').value = (s.texts_per_nc != null) ? s.texts_per_nc : (defaultGlobalSettings.texts_per_nc || 5);
+
+                        // Messages:
+                        if (s.custom_messages && s.custom_messages.length > 0) {
+                            document.getElementById('studioMessageText').value = s.custom_messages.join('\n');
+                        } else if (acc.custom_messages && acc.custom_messages.length > 0) {
+                            document.getElementById('studioMessageText').value = acc.custom_messages.join('\n');
+                        } else {
+                            document.getElementById('studioMessageText').value = defaultGlobalSettings.message_text || '';
+                        }
+
+                        // NC Titles:
+                        const accNc = s.custom_nc || acc.custom_nc;
+                        if (accNc && accNc.length > 0) {
+                            document.getElementById('studioNcText').value = accNc.join('\n');
+                        } else {
+                            document.getElementById('studioNcText').value = defaultGlobalSettings.nc_text || '';
+                        }
+
+                        setStudioMode(acc.mode || 'multi_gc', false);
+                        updateStudioCounters();
+                    }
+                }
+            }
+        }
+
+        function setStudioMode(mode, fromUserClick = true) {
+            studioBlastingMode = mode;
+            if (fromUserClick) {
+                userHasExplicitlyChosenMode = true;
+                const select = document.getElementById('studioAccountSelect');
+                const val = select ? select.value : 'ALL';
+                if (val && val !== 'ALL' && allFleetAccounts[val]) {
+                    allFleetAccounts[val].mode = mode;
+                    fetch('/api/accounts/switch_mode', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ account_id: val, mode: mode })
+                    }).catch(console.error);
+                }
+            }
+
+            const btnMulti = document.getElementById('btnModeMulti');
+            const btnSingle = document.getElementById('btnModeSingle');
+            const singleContainer = document.getElementById('singleGcInputContainer');
+
+            if (mode === 'multi_gc') {
+                if (btnMulti) btnMulti.className = "py-3 px-3 rounded-xl border border-rose-500/50 bg-rose-500/20 text-white font-black text-xs flex items-center justify-center gap-2 transition-all";
+                if (btnSingle) btnSingle.className = "py-3 px-3 rounded-xl border border-white/10 bg-black/30 text-slate-400 font-bold text-xs flex items-center justify-center gap-2 hover:text-white transition-all";
+                if (singleContainer) singleContainer.classList.add('hidden');
+            } else {
+                if (btnSingle) btnSingle.className = "py-3 px-3 rounded-xl border border-amber-500/50 bg-amber-500/20 text-white font-black text-xs flex items-center justify-center gap-2 transition-all";
+                if (btnMulti) btnMulti.className = "py-3 px-3 rounded-xl border border-white/10 bg-black/30 text-slate-400 font-bold text-xs flex items-center justify-center gap-2 hover:text-white transition-all";
+                if (singleContainer) singleContainer.classList.remove('hidden');
+            }
+        }
+
+        // --- LAUNCH / STOP ATTACK FROM STUDIO ---
+        async function launchSelectedAttack() {
+            const select = document.getElementById('studioAccountSelect');
+            const targetAcc = select ? select.value : 'ALL';
+            const targetName = document.getElementById('studioTargetName').value.trim();
+            const prefix = document.getElementById('studioPrefix').value.trim();
+            const threadInput = document.getElementById('studioSingleThreadInput').value.trim();
+            const msgText = document.getElementById('studioMessageText').value;
+            const ncText = document.getElementById('studioNcText').value;
+
+            if (!targetName && !prefix) {
+                alert("⚠️ Target Name (NC ke liye) ya Message Prefix (Spam ke liye) enter karein!");
+                document.getElementById('studioTargetName').focus();
+                return;
+            }
+
+            if (studioBlastingMode === 'single_gc' && !threadInput && targetAcc !== 'ALL') {
+                alert("⚠️ Target Group Chat Link or Thread ID is required for Single-GC mode!");
+                document.getElementById('studioSingleThreadInput').focus();
+                return;
+            }
+
+            let threadId = threadInput;
+            if (studioBlastingMode === 'single_gc') {
+                if (threadInput.includes('instagram.com') || threadInput.includes('ig.me') || threadInput.includes('/')) {
+                    const m = threadInput.match(/\/t\/([0-9a-zA-Z_\-]+)/) || threadInput.match(/\/j\/([0-9a-zA-Z_\-]+)/) || threadInput.match(/([0-9]{6,})/);
+                    if (m) threadId = m[1];
+                }
+            }
+
+            const msgDelay = parseFloat(document.getElementById('studioMsgDelay').value) || 30;
+            const renDelay = parseFloat(document.getElementById('studioTitleDelay').value) || 200;
+            const cycleWait = parseFloat(document.getElementById('studioCycleWait').value) || 60;
+            const textsPerNc = parseInt(document.getElementById('studioTextsPerNc').value) || 5;
+
+            if (targetAcc !== 'ALL') {
+                // Save this account's individual settings first
+                await saveGlobalSettings(false);
+
+                if (studioBlastingMode === 'single_gc') {
+                    try {
+                        const res = await fetch('/api/single_gc/start', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                account_id: targetAcc,
+                                thread_id: threadId,
+                                target_name: targetName,
+                                msg_prefix: prefix,
+                                custom_messages: msgText,
+                                custom_nc: ncText,
+                                between_messages_sec: msgDelay,
+                                between_renames_sec: renDelay,
+                                cycle_wait_sec: cycleWait,
+                                texts_per_nc: textsPerNc
+                            })
+                        });
+                        const data = await res.json();
+                        if (data.success) {
+                            alert(`🚀 Single GC Blaster engaged for account #${targetAcc} (@${allFleetAccounts[targetAcc]?.username || targetAcc}) on Thread: ${threadId}!`);
+                            loadFleetAccounts();
+                        } else {
+                            alert("Error: " + (data.error || "Failed to start"));
+                        }
+                    } catch (e) {
+                        console.error(e);
+                        alert("Network error starting Single GC attack");
+                    }
+                } else {
+                    // Multi-GC mode
+                    try {
+                        await fetch('/api/accounts/switch_mode', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ account_id: targetAcc, mode: 'multi_gc' })
+                        });
+
+                        const res = await fetch('/api/accounts/start', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                account_id: targetAcc,
+                                target_name: targetName,
+                                msg_prefix: prefix,
+                                custom_messages: msgText,
+                                custom_nc: ncText,
+                                between_messages_sec: msgDelay,
+                                between_renames_sec: renDelay,
+                                cycle_wait_sec: cycleWait,
+                                texts_per_nc: textsPerNc
+                            })
+                        });
+                        const data = await res.json();
+                        if (data.success) {
+                            alert(`🚀 Multi-GC Blaster activated across all inbox groups for account #${targetAcc} (@${allFleetAccounts[targetAcc]?.username || targetAcc})!`);
+                            loadFleetAccounts();
+                        } else {
+                            alert("Error: " + (data.error || "Failed to start bot"));
+                        }
+                    } catch (e) {
+                        console.error(e);
+                        alert("Network error starting Multi GC attack");
+                    }
+                }
+            } else {
+                // Launch for ALL accounts in fleet
+                const uids = Object.keys(allFleetAccounts);
+                if (uids.length === 0) {
+                    alert("⚠️ No fleet accounts found! Please add an Instagram account first.");
+                    return;
+                }
+
+                await saveGlobalSettings(false);
+
+                if (studioBlastingMode === 'single_gc') {
+                    let started = 0;
+                    for (const uid of uids) {
+                        const a = allFleetAccounts[uid] || {};
+                        const aTid = a.single_thread_id || threadId;
+                        if (!aTid) continue;
+                        try {
+                            const res = await fetch('/api/single_gc/start', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({
+                                    account_id: uid,
+                                    thread_id: aTid,
+                                    target_name: a.target_name || targetName,
+                                    msg_prefix: a.prefix || prefix,
+                                    custom_messages: (a.settings?.custom_messages && a.settings.custom_messages.length > 0) ? a.settings.custom_messages : msgText,
+                                    custom_nc: (a.settings?.custom_nc && a.settings.custom_nc.length > 0) ? a.settings.custom_nc : ncText,
+                                    between_messages_sec: a.settings?.between_messages_sec || msgDelay,
+                                    between_renames_sec: a.settings?.between_renames_sec || renDelay,
+                                    cycle_wait_sec: a.settings?.cycle_wait_sec || cycleWait,
+                                    texts_per_nc: a.settings?.texts_per_nc || textsPerNc
+                                })
+                            });
+                            const d = await res.json();
+                            if (d.success) started++;
+                        } catch (e) {
+                            console.error(e);
+                        }
+                    }
+                    alert(`🚀 Single GC Blaster engaged for ${started}/${uids.length} fleet accounts!`);
+                    loadFleetAccounts();
+                } else {
+                    // Multi-GC Fleet for all
+                    await startAllBots();
+                }
+            }
+        }
+
+        async function stopSelectedAttack() {
+            const select = document.getElementById('studioAccountSelect');
+            const targetAcc = select ? select.value : 'ALL';
+
+            if (targetAcc === 'ALL') {
+                await stopAllBots();
+            } else {
+                await stopBot(targetAcc);
+                alert(`⏹️ Stopped attack on account #${targetAcc}`);
+            }
+        }
+
+        async function triggerAutoFetchForSelectedAccount() {
+            const select = document.getElementById('studioAccountSelect');
+            const targetAcc = select ? select.value : 'ALL';
+            if (targetAcc === 'ALL') {
+                const uids = Object.keys(allFleetAccounts);
+                if (uids.length === 0) {
+                    alert("No accounts in fleet to fetch groups for.");
+                    return;
+                }
+                let count = 0;
+                for (const uid of uids) {
+                    await fetchAccountGroups(uid, false);
+                    count++;
+                }
+                alert(`✓ Auto-fetch completed for all ${count} fleet accounts!`);
+                loadFleetAccounts();
+                return;
+            }
+            await fetchAccountGroups(targetAcc, true);
+        }
+
+        // --- DISCOVERED GROUPS MODAL ---
+        function openDiscoveredGroupsModal() {
+            const select = document.getElementById('studioAccountSelect');
+            const targetAcc = select ? select.value : 'ALL';
+            const listEl = document.getElementById('modalGroupsList');
+            const titleEl = document.getElementById('modalGroupsAccountTitle');
+
+            if (targetAcc === 'ALL') {
+                titleEl.innerText = "Fleet Inbox Groups (All Accounts)";
+                let allGroups = [];
+                Object.values(allFleetAccounts).forEach(a => {
+                    const u = a.username || 'acc';
+                    (a.groups || []).forEach(g => {
+                        allGroups.push({ ...g, accountUser: u });
+                    });
+                });
+                renderGroupsInModal(allGroups);
+            } else {
+                const acc = allFleetAccounts[targetAcc];
+                if (!acc) return;
+                titleEl.innerText = `@${acc.username || targetAcc} - Discovered Groups`;
+                renderGroupsInModal(acc.groups || []);
+            }
+
+            document.getElementById('modalViewGroups').classList.remove('hidden');
+            document.getElementById('modalViewGroups').classList.add('flex');
+            lucide.createIcons();
+        }
+
+        function closeDiscoveredGroupsModal() {
+            document.getElementById('modalViewGroups').classList.add('hidden');
+            document.getElementById('modalViewGroups').classList.remove('flex');
+        }
+
+        function renderGroupsInModal(groups) {
+            const listEl = document.getElementById('modalGroupsList');
+            if (!groups || groups.length === 0) {
+                listEl.innerHTML = '<div class="p-8 text-center text-slate-400 text-xs">No group chats discovered yet. Click "Auto-Fetch GCs" to scan the inbox.</div>';
+                return;
+            }
+
+            let html = '';
+            groups.forEach((g, idx) => {
+                const title = g.title || `Group ${g.id}`;
+                const tid = g.id || '';
+                const uCount = g.users_count || (g.users ? g.users.length : 1);
+                const accUser = g.accountUser ? `<span class="text-[10px] text-slate-500 font-normal">(@${g.accountUser})</span>` : '';
+
+                html += `
+                <div class="p-3.5 rounded-xl bg-black/40 border border-white/10 flex items-center justify-between gap-3 hover:border-rose-500/40 transition-all">
+                    <div class="min-w-0">
+                        <div class="text-xs font-bold text-white truncate flex items-center gap-2">
+                            <span>${escapeHtml(title)}</span>
+                            ${accUser}
+                        </div>
+                        <div class="text-[10.5px] font-mono text-slate-400 flex items-center gap-3 mt-0.5">
+                            <span>ID: <code class="text-rose-300 select-all">${tid}</code></span>
+                            <span>Members: <strong class="text-emerald-400">${uCount}</strong></span>
+                        </div>
+                    </div>
+                    <button onclick="useGroupInSingle('${tid}')" class="px-2.5 py-1 rounded-lg bg-rose-500/20 hover:bg-rose-500/40 text-rose-300 text-[10px] font-bold shrink-0">
+                        Target This GC
+                    </button>
+                </div>
+                `;
+            });
+
+            listEl.innerHTML = html;
+        }
+
+        function useGroupInSingle(tid) {
+            setStudioMode('single_gc', true);
+            document.getElementById('studioSingleThreadInput').value = tid;
+            closeDiscoveredGroupsModal();
+            alert(`✓ Target set to Thread ID: ${tid}`);
+        }
+
+        // --- TAB 2: FLEET ACCOUNTS GRID ---
+        function renderAccountCards(accounts) {
+            const grid = document.getElementById('accountsGrid');
+            const empty = document.getElementById('accountsEmptyState');
+            const badgeCount = document.getElementById('tabBadgeAccountsCount');
+            const uids = Object.keys(accounts);
+
+            if (badgeCount) badgeCount.innerText = uids.length;
+
+            if (uids.length === 0) {
+                grid.innerHTML = '';
+                empty.classList.remove('hidden');
+                return;
+            }
+
+            empty.classList.add('hidden');
+            let html = '';
+
+            uids.forEach(uid => {
+                const acc = accounts[uid];
+                const isRunning = acc.is_running;
+                const isMulti = acc.mode === 'multi_gc';
+                const groupsCount = acc.groups_count || (acc.groups ? acc.groups.length : 0);
+                const targetName = acc.target_name || (acc.settings ? acc.settings.target_name : '') || 'Not configured';
+                const uname = acc.username || `account_${uid}`;
+                const owner = acc.owner || 'OWNER';
+
+                html += `
+                <div class="glass-panel p-5 glass-card-hover transition-all flex flex-col justify-between border ${isRunning ? 'border-emerald-500/40' : 'border-white/10'}" id="card-acc-${uid}">
+                    <div>
+                        <!-- Card Top: Username, UID, Status Badge -->
+                        <div class="flex items-start justify-between gap-3 mb-3.5">
+                            <div class="min-w-0">
+                                <div class="flex items-center gap-1.5">
+                                    <h3 class="text-sm font-black text-white truncate">@${uname}</h3>
+                                    <span class="text-[10px] font-mono text-slate-500">#${uid}</span>
+                                </div>
+                                <div class="flex items-center gap-2 mt-0.5 text-[11px] text-slate-400">
+                                    <span>Owner: <strong class="text-slate-300">${owner}</strong></span>
+                                </div>
+                            </div>
+
+                            <!-- Live Status Badge -->
+                            <div>
+                                ${isRunning ? `
+                                    <span class="px-2.5 py-1 rounded-full text-[10px] font-black uppercase bg-emerald-500/15 border border-emerald-500/40 text-emerald-400 flex items-center gap-1.5">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                                        <span>ACTIVE</span>
+                                    </span>
+                                ` : `
+                                    <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase bg-slate-800 border border-white/10 text-slate-400">
+                                        IDLE
+                                    </span>
+                                `}
+                            </div>
+                        </div>
+
+                        <!-- Mode & Target Pill -->
+                        <div class="grid grid-cols-2 gap-2 mb-3 text-[11px]">
+                            <div class="p-2 rounded-xl bg-black/30 border border-white/5">
+                                <div class="text-[9px] uppercase tracking-wider text-slate-500 font-bold">Mode</div>
+                                <div class="font-bold text-rose-300 truncate">${isMulti ? 'Multi-GC Fleet' : 'Single-GC Blaster'}</div>
+                            </div>
+                            <div class="p-2 rounded-xl bg-black/30 border border-white/5">
+                                <div class="text-[9px] uppercase tracking-wider text-slate-500 font-bold">Target</div>
+                                <div class="font-bold text-white truncate">${targetName}</div>
+                            </div>
+                        </div>
+
+                        <!-- Live Metrics -->
+                        <div class="grid grid-cols-4 gap-1.5 text-center p-2.5 rounded-xl bg-black/40 border border-white/5 text-[10px] font-mono mb-4">
+                            <div>
+                                <div class="text-slate-500">GROUPS</div>
+                                <div class="font-bold text-white">${groupsCount}</div>
+                            </div>
+                            <div>
+                                <div class="text-slate-500">SENT</div>
+                                <div class="font-bold text-violet-400">${acc.message_count || 0}</div>
+                            </div>
+                            <div>
+                                <div class="text-slate-500">RENAMED</div>
+                                <div class="font-bold text-amber-400">${acc.nc_count || 0}</div>
+                            </div>
+                            <div>
+                                <div class="text-slate-500">UPTIME</div>
+                                <div class="font-bold text-emerald-400 truncate">${acc.runtime || '00:00:00'}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card Actions -->
+                    <div class="flex items-center gap-2 pt-3 border-t border-white/10">
+                        ${isRunning ? `
+                            <button onclick="stopBot('${uid}')" class="flex-1 py-2.5 rounded-xl bg-red-600/20 hover:bg-red-600/30 text-red-300 border border-red-500/40 font-bold text-xs transition-all flex items-center justify-center gap-1.5 active:scale-95">
+                                <i data-lucide="square" class="w-3.5 h-3.5 fill-current"></i>
+                                <span>Stop</span>
+                            </button>
+                        ` : `
+                            <button onclick="startBot('${uid}', '${acc.mode || 'multi_gc'}')" class="flex-1 py-2.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/40 font-bold text-xs transition-all flex items-center justify-center gap-1.5 active:scale-95">
+                                <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
+                                <span>Start</span>
+                            </button>
+                        `}
+
+                        <button onclick="selectAccountForStudio('${uid}')" class="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-rose-300 border border-white/10 transition-all" title="Blast This Account">
+                            <i data-lucide="crosshair" class="w-4 h-4"></i>
+                        </button>
+
+                        <button onclick="fetchAccountGroups('${uid}')" class="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 transition-all" title="Auto-Fetch GCs">
+                            <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                        </button>
+
+                        <button onclick="deleteAccount('${uid}')" class="p-2.5 rounded-xl bg-white/5 hover:bg-red-500/20 text-slate-400 hover:text-red-400 border border-white/10 transition-all" title="Delete">
+                            <i data-lucide="trash-2" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+                `;
+            });
+
+            grid.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        function selectAccountForStudio(uid) {
+            switchTab('studio');
+            const select = document.getElementById('studioAccountSelect');
+            if (select) {
+                select.value = uid;
+                onStudioAccountChange(true);
+            }
+        }
+
+        function updateKpis(accounts) {
+            const uids = Object.keys(accounts);
+            let totalSent = 0;
+            let totalRenamed = 0;
+            let activeBots = 0;
+
+            uids.forEach(uid => {
+                const a = accounts[uid];
+                if (a.is_running) activeBots++;
+                totalSent += (a.message_count || 0);
+                totalRenamed += (a.nc_count || 0);
+            });
+
+            document.getElementById('kpiTotalAccounts').innerText = uids.length;
+            document.getElementById('kpiActiveBots').innerText = activeBots;
+            document.getElementById('kpiTotalSent').innerText = totalSent;
+            document.getElementById('kpiTotalRenamed').innerText = totalRenamed;
+        }
+
+        function filterAccountCards() {
+            const q = (document.getElementById('accountSearchInput').value || '').toLowerCase();
+            const grid = document.getElementById('accountsGrid');
+            const cards = grid.children;
+            for (let card of cards) {
+                const text = card.innerText.toLowerCase();
+                card.style.display = text.includes(q) ? '' : 'none';
+            }
+        }
+
+        // --- BOT ACTIONS ---
+        async function startBot(uid, mode) {
+            const acc = allFleetAccounts[uid] || {};
+            const targetName = acc.target_name || (acc.settings ? acc.settings.target_name : '');
+            const prefix = acc.prefix || (acc.settings ? acc.settings.msg_prefix : '');
+            if (!targetName && !prefix) {
+                alert("⚠️ Target Name ya Message Prefix is required! Please configure settings in Attack Studio.");
+                selectAccountForStudio(uid);
+                return;
+            }
+
+            if (mode === 'single_gc') {
+                const threadId = acc.single_thread_id;
+                if (!threadId) {
+                    alert("⚠️ Single GC thread ID is missing for this account! Please set it in Attack Studio.");
+                    selectAccountForStudio(uid);
+                    setStudioMode('single_gc', true);
+                    return;
+                }
+                try {
+                    const res = await fetch('/api/single_gc/start', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            account_id: uid,
+                            thread_id: threadId,
+                            target_name: targetName,
+                            msg_prefix: prefix,
+                            custom_messages: acc.settings?.custom_messages || acc.custom_messages || [],
+                            custom_nc: acc.settings?.custom_nc || acc.custom_nc || [],
+                            between_messages_sec: acc.settings?.between_messages_sec || 30,
+                            between_renames_sec: acc.settings?.between_renames_sec || 200,
+                            cycle_wait_sec: acc.settings?.cycle_wait_sec || 60,
+                            texts_per_nc: acc.settings?.texts_per_nc || 5
+                        })
+                    });
+                    const data = await res.json();
+                    if (data.success) {
+                        loadFleetAccounts();
+                    } else {
+                        alert("Error: " + (data.error || "Failed to start bot"));
+                    }
+                } catch (e) {
+                    console.error(e);
+                }
+                return;
+            }
+
+            try {
+                const res = await fetch('/api/accounts/start', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        account_id: uid,
+                        target_name: targetName,
+                        msg_prefix: prefix,
+                        custom_messages: acc.settings?.custom_messages || acc.custom_messages || [],
+                        custom_nc: acc.settings?.custom_nc || acc.custom_nc || [],
+                        between_messages_sec: acc.settings?.between_messages_sec || 30,
+                        between_renames_sec: acc.settings?.between_renames_sec || 200,
+                        cycle_wait_sec: acc.settings?.cycle_wait_sec || 60,
+                        texts_per_nc: acc.settings?.texts_per_nc || 5
+                    })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    loadFleetAccounts();
+                } else {
+                    alert("Error: " + (data.error || "Failed to start bot"));
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        async function stopBot(uid) {
+            try {
+                const res = await fetch('/api/accounts/stop', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ account_id: uid })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    loadFleetAccounts();
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        async function startAllBots() {
+            try {
+                const res = await fetch('/api/accounts/start_all', { method: 'POST' });
+                const data = await res.json();
+                alert(`🚀 Fleet Dispatched! Started ${data.started_count || 0} bots.`);
+                loadFleetAccounts();
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        async function stopAllBots() {
+            try {
+                const res = await fetch('/api/accounts/stop_all', { method: 'POST' });
+                const data = await res.json();
+                alert(`⏹️ Fleet Stopped! Stopped ${data.stopped_count || 0} bots.`);
+                loadFleetAccounts();
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        async function deleteAccount(uid) {
+            if (!confirm(`Are you sure you want to remove account #${uid} from the fleet?`)) return;
+            try {
+                const res = await fetch('/api/accounts/delete', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ account_id: uid })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    loadFleetAccounts();
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        async function fetchAccountGroups(uid, showAlert = true) {
+            try {
+                const res = await fetch('/api/accounts/fetch_groups', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ account_id: uid })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    if (showAlert) {
+                        alert(`✓ Inbox Scan Complete: Discovered ${data.count} active group chats (>1 users)!`);
+                    }
+                    loadFleetAccounts();
+                } else {
+                    if (showAlert) {
+                        alert(`Inbox scan notice: ${data.error}`);
+                    }
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        // --- MODAL: ADD ACCOUNT ---
+        function openAddAccountModal() {
+            document.getElementById('modalAddAccount').classList.remove('hidden');
+            document.getElementById('modalAddAccount').classList.add('flex');
+            lucide.createIcons();
+        }
+
+        function closeAddAccountModal() {
+            document.getElementById('modalAddAccount').classList.add('hidden');
+            document.getElementById('modalAddAccount').classList.remove('flex');
+        }
+
+        let accountLoginMode = 'session';
+        let pending2FAToken = '';
+
+        function switchAccountLoginMode(mode) {
+            accountLoginMode = mode;
+            const s = document.getElementById('sessionLoginFields');
+            const p = document.getElementById('passwordLoginFields');
+            const sb = document.getElementById('loginModeSessionBtn');
+            const pb = document.getElementById('loginModePasswordBtn');
+            const csrf = document.getElementById('csrfField');
+            if (mode === 'session') {
+                s.classList.remove('hidden'); p.classList.add('hidden');
+                sb.className = 'py-2.5 rounded-xl bg-rose-600 text-white text-[11px] font-black uppercase';
+                pb.className = 'py-2.5 rounded-xl bg-white/5 text-slate-400 text-[11px] font-black uppercase';
+                csrf.classList.remove('hidden');
+            } else {
+                s.classList.add('hidden'); p.classList.remove('hidden');
+                pb.className = 'py-2.5 rounded-xl bg-rose-600 text-white text-[11px] font-black uppercase';
+                sb.className = 'py-2.5 rounded-xl bg-white/5 text-slate-400 text-[11px] font-black uppercase';
+                csrf.classList.add('hidden');
+            }
+        }
+
+        async function handleAddAccountSubmit(e) {
+            e.preventDefault();
+            const btn = document.getElementById('modalAddSubmitBtn');
+            const txt = document.getElementById('modalAddSubmitText');
+            const verificationVisible = !document.getElementById('verificationFields').classList.contains('hidden');
+
+            btn.disabled = true;
+            txt.innerText = verificationVisible ? "Verifying Code..." : "Authenticating...";
+
+            try {
+                let res, data;
+                if (verificationVisible) {
+                    const code = document.getElementById('modalVerificationCode').value.trim();
+                    res = await fetch('/api/accounts/login/verify', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ challenge_token: pending2FAToken, verification_code: code })
+                    });
+                    data = await res.json();
+                } else {
+                    const body = accountLoginMode === 'session'
+                        ? { session_id: document.getElementById('modalSessionId').value.trim(), csrf_token: document.getElementById('modalCsrfToken').value.trim() }
+                        : { username: document.getElementById('modalUsername').value.trim(), password: document.getElementById('modalPassword').value };
+
+                    res = await fetch('/api/accounts/add', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(body)
+                    });
+                    data = await res.json();
+
+                    if (data.two_factor_required && data.challenge_token) {
+                        pending2FAToken = data.challenge_token;
+                        document.getElementById('verificationFields').classList.remove('hidden');
+                        document.getElementById('modalVerificationCode').focus();
+                        txt.innerText = "Verify Code";
+                        return;
+                    }
+                }
+
+                if (data.success) {
+                    alert(`✓ Account @${data.account.username} authenticated and added to fleet!`);
+                    closeAddAccountModal();
+                    document.getElementById('modalSessionId').value = '';
+                    document.getElementById('modalUsername').value = '';
+                    document.getElementById('modalPassword').value = '';
+                    document.getElementById('modalVerificationCode').value = '';
+                    pending2FAToken = '';
+                    document.getElementById('verificationFields').classList.add('hidden');
+                    switchAccountLoginMode('session');
+                    loadFleetAccounts();
+                } else {
+                    alert("Authentication Error: " + (data.error || data.message || "Login failed"));
+                }
+            } catch (err) {
+                alert("Network error while adding account");
+            } finally {
+                btn.disabled = false;
+                txt.innerText = verificationVisible ? "Verify Code" : "Verify & Add to Fleet";
+            }
+        }
+
+
+        // --- GLOBAL SETTINGS (ATTACK STUDIO) ---
+        async function loadGlobalSettings() {
+            try {
+                const res = await fetch('/api/global_settings');
+                const data = await res.json();
+                defaultGlobalSettings = {
+                    target_name: data.target_name || '',
+                    prefix: data.prefix || '',
+                    delay_msg: data.delay_msg || 30,
+                    delay_title: data.delay_title || 200,
+                    cycle_wait: data.cycle_wait || 60,
+                    texts_per_nc: data.texts_per_nc || 5,
+                    self_url: data.self_url || '',
+                    message_text: data.message_text || '',
+                    nc_text: data.nc_text || ''
+                };
+
+                const select = document.getElementById('studioAccountSelect');
+                if (!select || select.value === 'ALL') {
+                    document.getElementById('studioTargetName').value = defaultGlobalSettings.target_name;
+                    document.getElementById('studioPrefix').value = defaultGlobalSettings.prefix;
+                    document.getElementById('studioMsgDelay').value = defaultGlobalSettings.delay_msg;
+                    document.getElementById('studioTitleDelay').value = defaultGlobalSettings.delay_title;
+                    document.getElementById('studioCycleWait').value = defaultGlobalSettings.cycle_wait;
+                    document.getElementById('studioTextsPerNc').value = defaultGlobalSettings.texts_per_nc;
+                    document.getElementById('studioSelfUrl').value = defaultGlobalSettings.self_url;
+                    document.getElementById('studioMessageText').value = defaultGlobalSettings.message_text;
+                    document.getElementById('studioNcText').value = defaultGlobalSettings.nc_text;
+                    updateStudioCounters();
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        function updateStudioCounters() {
+            const msgVal = document.getElementById('studioMessageText').value;
+            const ncVal = document.getElementById('studioNcText').value;
+            const msgLines = msgVal.split('\n').filter(l => l.trim()).length;
+            const ncLines = ncVal.split('\n').filter(l => l.trim()).length;
+            document.getElementById('studioMsgCount').innerText = `${msgLines} Templates`;
+            document.getElementById('studioNcCount').innerText = `${ncLines} Titles`;
+        }
+
+        document.getElementById('studioMessageText').addEventListener('input', updateStudioCounters);
+        document.getElementById('studioNcText').addEventListener('input', updateStudioCounters);
+
+        function clearStudioMessages() {
+            document.getElementById('studioMessageText').value = '';
+            updateStudioCounters();
+        }
+
+        function clearStudioTitles() {
+            document.getElementById('studioNcText').value = '';
+            updateStudioCounters();
+        }
+
+        async function saveGlobalSettings(showAlert = true) {
+            const select = document.getElementById('studioAccountSelect');
+            const val = select ? select.value : 'ALL';
+
+            const target_name = document.getElementById('studioTargetName').value.trim();
+            const prefix = document.getElementById('studioPrefix').value.trim();
+            const delay_msg = parseFloat(document.getElementById('studioMsgDelay').value) || 30;
+            const delay_title = parseFloat(document.getElementById('studioTitleDelay').value) || 200;
+            const cycle_wait = parseFloat(document.getElementById('studioCycleWait').value) || 60;
+            const texts_per_nc = parseInt(document.getElementById('studioTextsPerNc').value) || 5;
+            const self_url = document.getElementById('studioSelfUrl').value.trim();
+            const message_text = document.getElementById('studioMessageText').value;
+            const nc_text = document.getElementById('studioNcText').value;
+            const single_thread_id = document.getElementById('studioSingleThreadInput').value.trim();
+
+            if (val !== 'ALL') {
+                // SAVE ONLY FOR THIS INDIVIDUAL ACCOUNT
+                const payload = {
+                    account_id: val,
+                    target_name: target_name,
+                    msg_prefix: prefix,
+                    single_thread_id: single_thread_id,
+                    mode: studioBlastingMode,
+                    custom_messages: message_text,
+                    custom_nc: nc_text,
+                    between_messages_sec: delay_msg,
+                    between_renames_sec: delay_title,
+                    cycle_wait_sec: cycle_wait,
+                    texts_per_nc: texts_per_nc
+                };
+
+                try {
+                    const res = await fetch('/api/accounts/settings', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    const data = await res.json();
+                    if (data.success) {
+                        if (allFleetAccounts[val]) {
+                            allFleetAccounts[val].target_name = target_name;
+                            allFleetAccounts[val].prefix = prefix;
+                            allFleetAccounts[val].single_thread_id = single_thread_id;
+                            allFleetAccounts[val].mode = studioBlastingMode;
+                            const s = allFleetAccounts[val].settings || {};
+                            s.target_name = target_name;
+                            s.msg_prefix = prefix;
+                            s.custom_messages = message_text.split('\n').filter(l => l.trim());
+                            s.custom_nc = nc_text.split('\n').filter(l => l.trim());
+                            s.between_messages_sec = delay_msg;
+                            s.between_renames_sec = delay_title;
+                            s.cycle_wait_sec = cycle_wait;
+                            s.texts_per_nc = texts_per_nc;
+                            allFleetAccounts[val].settings = s;
+                        }
+                        if (showAlert) alert(`✓ Individual settings successfully saved for @${allFleetAccounts[val]?.username || val}!`);
+                        loadFleetAccounts();
+                    } else {
+                        if (showAlert) alert("Error saving account settings: " + (data.error || "Failed"));
+                    }
+                } catch (err) {
+                    if (showAlert) alert("Network error saving configuration");
+                }
+            } else {
+                // SAVE GLOBAL TEMPLATE ONLY
+                const payload = {
+                    target_name: target_name,
+                    prefix: prefix,
+                    delay_msg: delay_msg,
+                    delay_title: delay_title,
+                    cycle_wait: cycle_wait,
+                    texts_per_nc: texts_per_nc,
+                    self_url: self_url,
+                    message_text: message_text,
+                    nc_text: nc_text,
+                    apply_to_all: false
+                };
+
+                try {
+                    const res = await fetch('/api/global_settings', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    const data = await res.json();
+                    if (data.success) {
+                        defaultGlobalSettings = { ...payload };
+                        if (showAlert) alert("✓ Global template successfully saved to message.txt & nc.txt!");
+                        loadFleetAccounts();
+                    } else {
+                        if (showAlert) alert("Error saving attack config: " + (data.error || "Failed"));
+                    }
+                } catch (err) {
+                    if (showAlert) alert("Network error saving configuration");
+                }
+            }
+        }
+
+        async function applyCurrentSettingsToAllAccounts() {
+            const target_name = document.getElementById('studioTargetName').value.trim();
+            const prefix = document.getElementById('studioPrefix').value.trim();
+            const delay_msg = parseFloat(document.getElementById('studioMsgDelay').value) || 30;
+            const delay_title = parseFloat(document.getElementById('studioTitleDelay').value) || 200;
+            const cycle_wait = parseFloat(document.getElementById('studioCycleWait').value) || 60;
+            const texts_per_nc = parseInt(document.getElementById('studioTextsPerNc').value) || 5;
+            const self_url = document.getElementById('studioSelfUrl').value.trim();
+            const message_text = document.getElementById('studioMessageText').value;
+            const nc_text = document.getElementById('studioNcText').value;
+
+            if (!confirm("Are you sure you want to copy the current Target Name, Prefix, Messages & NC to ALL fleet accounts?")) {
+                return;
+            }
+
+            try {
+                const res = await fetch('/api/global_settings', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        target_name: target_name,
+                        prefix: prefix,
+                        delay_msg: delay_msg,
+                        delay_title: delay_title,
+                        cycle_wait: cycle_wait,
+                        texts_per_nc: texts_per_nc,
+                        self_url: self_url,
+                        message_text: message_text,
+                        nc_text: nc_text,
+                        apply_to_all: true
+                    })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    alert("✓ Configuration successfully applied to ALL accounts in fleet!");
+                    await loadFleetAccounts();
+                } else {
+                    alert("Error: " + (data.error || "Failed to apply to all accounts"));
+                }
+            } catch (e) {
+                console.error(e);
+                alert("Network error applying to all accounts");
+            }
+        }
+
+        // --- MASTER OWNER MATRIX ---
+        async function loadOwnerStatus() {
+            if (currentUserRole !== 'owner') return;
+            try {
+                const res = await fetch('/status');
+                const data = await res.json();
+                const users = data.users || {};
+                const tbody = document.getElementById('ownerUsersTableBody');
+                const filterSelect = document.getElementById('filterOwnerUser');
+
+                if (tbody) {
+                    let html = '';
+                    const userKeys = Object.keys(users);
+                    if (userKeys.length === 0) {
+                        html = `<tr><td colspan="5" class="py-6 text-center text-slate-500 font-medium text-xs">No users created yet. Use the "Create User Account" form below to add authorized users.</td></tr>`;
+                    } else {
+                        for (const uname of userKeys) {
+                            const u = users[uname];
+                            html += `
+                            <tr class="hover:bg-white/[0.02] transition-colors">
+                                <td class="py-3 px-3 font-bold text-white flex items-center gap-1.5">
+                                    <i data-lucide="user" class="w-3.5 h-3.5 text-rose-400"></i>
+                                    <span>@${uname}</span>
+                                </td>
+                                <td class="py-3 px-3 text-slate-300">${u.name || uname}</td>
+                                <td class="py-3 px-3 font-mono text-amber-300 font-semibold">${u.password || '******'}</td>
+                                <td class="py-3 px-3 font-mono text-slate-300">${u.premium_count || 0}</td>
+                                <td class="py-3 px-3 text-right space-x-2">
+                                    <button onclick="promptUpdatePassword('${uname}')" class="px-3 py-1 rounded-xl bg-amber-500/15 hover:bg-amber-500/30 text-amber-300 border border-amber-500/30 text-[11px] font-bold">
+                                        Change Pass
+                                    </button>
+                                    <button onclick="deleteUserAccount('${uname}')" class="px-3 py-1 rounded-xl bg-red-500/15 hover:bg-red-500/30 text-red-300 border border-red-500/30 text-[11px] font-bold">
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                            `;
+                        }
+                    }
+                    tbody.innerHTML = html;
+                    lucide.createIcons();
+                }
+
+                if (filterSelect) {
+                    let cur = filterSelect.value;
+                    let opts = '<option value="ALL" class="bg-slate-900 text-white">All Users (Fleet View)</option>';
+                    for (const uname in users) {
+                        opts += `<option value="${uname}" ${cur === uname ? 'selected' : ''} class="bg-slate-900 text-white">@${uname} (${users[uname].name || uname})</option>`;
+                    }
+                    filterSelect.innerHTML = opts;
+                }
+
+                const terminalOwnerSelect = document.getElementById('terminalOwnerUserFilter');
+                if (terminalOwnerSelect) {
+                    let curT = terminalOwnerSelect.value;
+                    let optsT = '<option value="ALL" class="bg-slate-900 text-white">👑 All Users (Global)</option>';
+                    for (const uname in users) {
+                        optsT += `<option value="${uname}" ${curT === uname ? 'selected' : ''} class="bg-slate-900 text-white">@${uname} (${users[uname].name || uname})</option>`;
+                    }
+                    terminalOwnerSelect.innerHTML = optsT;
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        function onTerminalOwnerFilterChange() {
+            fetchTelemetryLogs();
+        }
+
+        async function handleCreateUser(e) {
+            e.preventDefault();
+            const user = document.getElementById('newUsername').value.trim();
+            const pass = document.getElementById('newUserPass').value.trim();
+            const name = document.getElementById('newUserName').value.trim();
+
+            try {
+                const res = await fetch('/add_user', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ user, pass, name })
+                });
+                const data = await res.json();
+                if (data.status === 'ok') {
+                    alert(`✓ User @${user} created successfully!`);
+                    document.getElementById('newUsername').value = '';
+                    document.getElementById('newUserPass').value = '';
+                    document.getElementById('newUserName').value = '';
+                    loadOwnerStatus();
+                } else {
+                    alert("Error creating user: " + (data.message || data.status));
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        async function promptUpdatePassword(user) {
+            const newPass = prompt(`Enter new password for @${user}:`);
+            if (!newPass || !newPass.trim()) return;
+
+            try {
+                const res = await fetch('/update_user_password', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ user: user, password: newPass.trim() })
+                });
+                const data = await res.json();
+                if (data.status === 'ok') {
+                    alert(`✓ Password updated for @${user}!`);
+                    loadOwnerStatus();
+                } else {
+                    alert("Failed to update password: " + (data.message || data.status));
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        async function deleteUserAccount(user) {
+            if (!confirm(`Are you sure you want to completely delete user @${user} and all their linked accounts?`)) return;
+            try {
+                const res = await fetch('/delete_user', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ user: user })
+                });
+                const data = await res.json();
+                if (data.status === 'ok') {
+                    alert(`✓ User @${user} removed from system.`);
+                    loadOwnerStatus();
+                    loadFleetAccounts();
+                } else {
+                    alert("Failed to delete user: " + (data.message || data.status));
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        // --- LIVE TELEMETRY CONSOLE ---
+        async function fetchTelemetryLogs() {
+            try {
+                let url = '/api/accounts/logs?category=all';
+                const accSelect = document.getElementById('terminalAccountFilter');
+                if (accSelect && accSelect.value && accSelect.value !== 'ALL') {
+                    url += '&account_id=' + encodeURIComponent(accSelect.value);
+                }
+                const ownerSelect = document.getElementById('terminalOwnerUserFilter');
+                if (ownerSelect && ownerSelect.value && ownerSelect.value !== 'ALL') {
+                    url += '&owner_filter=' + encodeURIComponent(ownerSelect.value);
+                }
+
+                const res = await fetch(url);
+                const logs = await res.json();
+                renderTelemetryLogs(logs);
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        function formatTerminalLog(msg) {
+            let safe = escapeHtml(msg || '');
+
+            // 1. Highlight Cycle / Round Banners
+            if (safe.includes('--- 🎯 SINGLE GC') || safe.includes('--- 🚀 MULTI-GC')) {
+                return `<div class="p-2.5 rounded-xl bg-gradient-to-r from-rose-950/70 via-purple-950/70 to-slate-950 border border-rose-500/40 text-white font-mono font-bold text-[11px] my-1 shadow-md">${safe}</div>`;
+            }
+
+            // 2. Highlight Group Chat Names & IDs [GC: '...' | ID: ...]
+            safe = safe.replace(/\[GC:\s*(?:&#039;|&quot;|&#39;|')(.*?)(?:&#039;|&quot;|&#39;|')\s*\|\s*ID:\s*([0-9a-zA-Z_\-]+)\]/g, 
+                '<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-lg bg-cyan-500/15 border border-cyan-500/40 text-cyan-300 font-mono text-[11px] font-bold"><span class="text-slate-400 font-sans text-[9px] uppercase tracking-wider">GC:</span> "$1" <span class="text-rose-400">#$2</span></span>');
+
+            // 3. Highlight 💬 Text Delivered
+            if (safe.includes('💬') || safe.includes('Text Delivered') || safe.includes('Delivered:')) {
+                safe = safe.replace(/💬\s*(?:Text\s*)?(?:\[([0-9]+\/[0-9]+)\])?/, 
+                    '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-black text-[10.5px]">💬 DELIVERED $1</span>');
+                safe = safe.replace(/Delivered:\s*(?:&quot;|&#039;|&#39;|")(.*?)(?:&quot;|&#039;|&#39;|")/g, 
+                    'Delivered: <span class="text-emerald-300 font-bold bg-emerald-950/40 px-1.5 py-0.5 rounded border border-emerald-500/20 font-mono">&quot;$1&quot;</span>');
+            }
+
+            // 4. Highlight ❌ Failed
+            if (safe.includes('❌') || safe.includes('Failed')) {
+                safe = safe.replace(/❌\s*(?:Text\s*)?(?:\[([0-9]+\/[0-9]+)\])?/, 
+                    '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-red-500/20 text-red-300 border border-red-500/40 font-black text-[10.5px]">❌ FAILED $1</span>');
+                safe = safe.replace(/Failed:\s*(.*?)(?=\s*\(Waiting|\s*$)/g,
+                    'Failed: <span class="text-red-300 font-bold bg-red-950/40 px-1.5 py-0.5 rounded border border-red-500/20 font-mono">$1</span>');
+            }
+
+            // 5. Highlight 🏷️ NC Renamed
+            if (safe.includes('🏷️') || safe.includes('NC Renamed')) {
+                safe = safe.replace(/🏷️\s*(?:\[([0-9]+\/[0-9]+)\])?/, 
+                    '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-amber-500/25 text-amber-300 border border-amber-500/40 font-black text-[10.5px]">🏷️ RENAMED $1</span>');
+                safe = safe.replace(/NC Renamed to:\s*(?:&quot;|&#039;|&#39;|")(.*?)(?:&quot;|&#039;|&#39;|")/g, 
+                    'NC Renamed to: <span class="text-amber-300 font-bold bg-amber-950/40 px-1.5 py-0.5 rounded border border-amber-500/20 font-mono">&quot;$1&quot;</span>');
+                safe = safe.replace(/Triggering NC Rename -&gt;\s*(?:&quot;|&#039;|&#39;|")(.*?)(?:&quot;|&#039;|&#39;|")/g, 
+                    'Triggering NC Rename -&gt; <span class="text-amber-300 font-bold bg-amber-950/40 px-1.5 py-0.5 rounded border border-amber-500/20 font-mono">&quot;$1&quot;</span>');
+            }
+
+            return safe;
+        }
+
+        function renderTelemetryLogs(logs) {
+            const con = document.getElementById('telemetryConsole');
+            if (!con || !Array.isArray(logs)) return;
+
+            let html = '';
+            logs.slice(-200).forEach(l => {
+                const lvl = (l.level || 'INFO').toUpperCase();
+                let badgeClass = "text-cyan-400";
+                if (lvl === 'SUCCESS') badgeClass = "text-emerald-400";
+                else if (lvl === 'WARN') badgeClass = "text-amber-400";
+                else if (lvl === 'ERROR') badgeClass = "text-red-400";
+                else if (lvl === 'CYCLE') badgeClass = "text-rose-400";
+                else if (lvl === 'RENAMER') badgeClass = "text-amber-300";
+
+                const acc = l.account ? `@${l.account}` : 'SYSTEM';
+                const ts = l.time || (l.timestamp ? l.timestamp.split(' ')[1] || l.timestamp : '');
+                const rawMsg = l.msg || l.message || '';
+                const formattedMsg = formatTerminalLog(rawMsg);
+
+                html += `
+                <div class="flex flex-wrap items-start gap-2 hover:bg-white/[0.03] py-1.5 rounded px-2 transition-colors border-b border-white/[0.02]">
+                    <span class="text-slate-500 shrink-0 font-mono text-[10px] select-none">[${ts}]</span>
+                    <span class="font-bold shrink-0 ${badgeClass} text-[10px] select-none">[${lvl}]</span>
+                    <span class="text-cyan-300 shrink-0 font-bold text-[10.5px] font-mono">[${acc}]</span>
+                    <span class="text-slate-200 break-all flex-1 leading-relaxed">${formattedMsg}</span>
+                </div>
+                `;
+            });
+
+            con.innerHTML = html || '<div class="text-slate-500 italic">No telemetry logs yet.</div>';
+
+            const auto = document.getElementById('autoScrollCheck');
+            if (auto && auto.checked) {
+                con.scrollTop = con.scrollHeight;
+            }
+        }
+
+        function clearConsoleView() {
+            const con = document.getElementById('telemetryConsole');
+            if (con) con.innerHTML = '<div class="text-slate-500 italic">Console cleared by user.</div>';
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        }
+
+        // --- INITIALIZATION & RECURRING POLLING ---
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchTunnelUrl();
+            loadGlobalSettings();
+            loadFleetAccounts();
+            if (currentUserRole === 'owner') {
+                loadOwnerStatus();
+            }
+            loadDownloadInfo();
+
+            // Real-time polling
+            setInterval(fetchTunnelUrl, 10000);  // Refresh tunnel URL every 10s
+            setInterval(() => {
+                if (currentActiveTab === 'accounts') {
+                    loadFleetAccounts();
+                } else if (currentActiveTab === 'studio') {
+                    refreshFleetStatusOnly();
+                } else if (currentActiveTab === 'telemetry') {
+                    fetchTelemetryLogs();
+                }
+            }, 3500); // 3.5s refresh
+        });
+    </script>
+</body>
+</html>

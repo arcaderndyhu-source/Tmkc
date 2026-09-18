@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - KINGX SCAR PANNEL</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>body{background:#0a0a0a;color:#fff;display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:sans-serif;}
+.card{background:#1a1a1a;border:1px solid #333;border-radius:16px;padding:30px;width:100%;max-width:400px;}
+.btn-scar{background:linear-gradient(90deg,#ff0040,#ff8a00);border:0;color:#fff;font-weight:700;width:100%;padding:12px;border-radius:10px;}
+input{background:#222!important;color:#fff!important;border:1px solid #444!important;}
+</style></head>
+<body>
+<div class="card">
+<h3 class="text-center fw-bold">⚡ KINGX SCAR</h3><p class="text-center text-white-50">Login to Panel</p>
+{% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
+<form method="POST" action="/login">
+<input name="username" class="form-control mb-3" placeholder="Username (PUBLIC / SCAR)" required>
+<input name="password" type="password" class="form-control mb-3" placeholder="Password" required>
+<button class="btn-scar" type="submit">LOGIN</button>
+</form>
+<p class="text-center mt-3 text-white-50" style="font-size:12px;">Owner: SCAR / SCAR@12345<br>Public: PUBLIC / KING@12345</p>
+<div class="text-center mt-2"><small>Self-Ping: <span id="ping">Checking...</span></small></div>
+</div>
+<script>fetch('/api/self_ping/status').then(r=>r.json()).then(j=>{document.getElementById('ping').innerHTML=j.thread_alive?'<span style=color:#0f0>ALIVE</span>':'<span style=color:red>OFF</span>'}).catch(()=>{document.getElementById('ping').innerText='N/A'})</script>
+</body></html>
